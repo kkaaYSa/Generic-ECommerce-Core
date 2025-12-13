@@ -1,0 +1,40 @@
+﻿@model KahveMVC.Models.EntityFramework.magazasaat
+@{
+    ViewBag.Title = "Mağaza Saat";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="container">
+    <h2>Mağaza Saat Güncelleme Sayfası</h2>
+    @using (Html.BeginForm("Kaydet", "MagazaSaatler", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <table class="table table-bordered">
+
+            <tr>
+                <td>Gün</td>
+                <td>
+                    @Html.TextBoxFor(m => m.gun, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.gun)
+                </td>
+            </tr>
+            <tr>
+                <td>Saat</td>
+                <td>
+                    @Html.TextBoxFor(m => m.saat, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.saat)
+                </td>
+            </tr>
+           
+            <tr>
+                <td></td>
+                <td>
+                    @Html.HiddenFor(m => m.id)
+
+                    <input type="submit" value="Kaydet" class="btn btn-success" />
+                </td>
+            </tr>
+
+        </table>
+    }
+</div>

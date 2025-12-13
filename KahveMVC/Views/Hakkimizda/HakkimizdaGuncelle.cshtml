@@ -1,0 +1,67 @@
+﻿@model KahveMVC.Models.EntityFramework.hakkimizda
+@{
+    ViewBag.Title = "Hakkımızda";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="container">
+    <h2>Hakkımızda Güncelle Sayfası</h2>
+    @using (Html.BeginForm("Kaydet", "Hakkimizda", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <table class="table table-bordered">
+            <tr>
+                <td>Foto</td>
+                <td>
+                    <img src="~/Content/img/@Model.foto" width="250" /> <br />
+                    @Html.TextBoxFor(m => m.fotoFile, new { type = "file" })
+                </td>
+            </tr>
+            <tr>
+                <td>Üst Başlık</td>
+                <td>
+                    @Html.TextBoxFor(m => m.ustBaslik, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ustBaslik)
+                </td>
+            </tr>
+            <tr>
+                <td>Başlık</td>
+                <td>
+                    @Html.TextBoxFor(m => m.baslik, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.baslik)
+                </td>
+            </tr>
+            <tr>
+                <td>İçerik</td>
+                <td>
+                    @Html.TextAreaFor(m => m.icerik, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.icerik)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.HiddenFor(m => m.id)
+                    @Html.HiddenFor(m => m.foto)
+                    <input type="submit" value="Kaydet" class="btn btn-success" />
+                </td>
+            </tr>
+
+        </table>
+    }
+</div>
+
+
+@section scripts
+    {
+   
+    <script src="~/Content/ckeditor5-build-classic/ckeditor.js"></script>
+    <script>
+
+        ClassicEditor
+            .create(document.querySelector('#icerik'))
+            .catch(error => {
+                console.log(error);
+            });
+    </script>
+}

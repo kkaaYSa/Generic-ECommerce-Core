@@ -1,0 +1,78 @@
+﻿@model KahveMVC.Models.EntityFramework.iletisimformu
+@{
+    ViewBag.Title = "İletişim";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div class="row m-4">
+        <div class="col-xl-9 mx-auto  p-4" " style="background-color:white">
+
+            <h2>İletişim Formu</h2>
+            @if (ViewBag.Hata != null)
+            {
+                <div class="alert-danger my-4">
+                    @ViewBag.Hata
+                </div>
+            }
+
+            @if (ViewBag.Mesaj != null)
+            {
+                <div class="alert-success my-4">
+                    @ViewBag.Mesaj
+                </div>
+
+            }
+                
+            @using (Html.BeginForm("iletisim", "Default", FormMethod.Post))
+            {
+                <div class="form-group">
+                    @Html.LabelFor(m => m.adSoyad)
+                    @Html.TextBoxFor(m => m.adSoyad, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.adSoyad)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.eposta)
+                    @Html.TextBoxFor(m => m.eposta, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.eposta)
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.mesaj)
+                    @Html.TextAreaFor(m => m.mesaj, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.mesaj)
+                </div>
+                <div class="radio">
+                    <label>
+                        @Html.RadioButtonFor(m => m.cinsiyet, true) Kadın
+                    </label>
+                    <label>
+                        @Html.RadioButtonFor(m => m.cinsiyet, false) Erkek
+                    </label>
+                    <br />
+                    @Html.ValidationMessageFor(m => m.cinsiyet)
+                  
+                </div>
+                <div class="custom-checkbox">
+                    <label>
+                        @Html.CheckBoxFor(m => m.izin) İletişime geçmeyi onaylıyorum.
+                    </label>
+                </div>
+
+
+
+                <input type="submit" class="btn btn-primary" value="Gönder" />
+            }
+
+
+        </div>
+    </div>
+</div>
+
+@section scripts
+    {
+
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+}

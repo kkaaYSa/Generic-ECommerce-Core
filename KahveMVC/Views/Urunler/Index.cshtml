@@ -1,0 +1,217 @@
+﻿@model List<KahveMVC.Models.EntityFramework.urunler>
+@{
+    ViewBag.Title = "Ürünler";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Scripts/sweetalert.min.js"></script>
+
+@if (TempData["urunSil"] != null)
+{
+    <script>
+        swal("Ürün silindi", "Tebrikler", "info");
+    </script>
+}
+
+@if (TempData["urunGuncelle"] != null)
+{
+    <script>
+        swal("Ürün güncellendi", "Tebrikler", "success");
+    </script>
+}
+@if (TempData["urunEkle"] != null)
+{
+    <script>
+        swal("Ürün eklendi", "Tebrikler", "success");
+    </script>
+}
+<link href="~/Content/admin/switch.css" rel="stylesheet" />
+
+<div id="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Ürünler</li>
+        </ol>
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+            <div class="card-header">
+
+                <h4><i class="fas fa-table"></i>Ürünler listesi</h4> <br />
+                @Html.ActionLink("Yeni Ürün Ekle", "Yeni", null, new { @class = "btn btn-primary mx-4" })
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Üst Başlık</th>
+                                <th>Başlık</th>
+                                <th>İçerik</th>
+                                <th>Aktif</th>
+                                <th>Sıra</th>
+                                <th>Güncelle</th>
+                                <th>Sil</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var veri in Model)
+                            {
+                                <tr>
+                                    <td><img src="~/Content/img/@veri.foto" width="150" /></td>
+                                    <td>@veri.ustBaslik</td>
+                                    <td>@veri.baslik</td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter_@veri.id">
+                                            İçeriği Oku
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModalCenter_@veri.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">İçerik</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @Html.Raw(veri.icerik)
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        @*<img src="~/Content/img/simge/@(veri.aktif == true ? "1.png" : "0.png")" />*@
+                                        <label class="switch">
+                                            <input type="checkbox" id='@veri.id' class="aktifPasif" @(veri.aktif == true ? "checked" : "") />
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </td>
+                                    <td>@veri.sira</td>
+                                    <td> @Html.ActionLink("Güncelle", "Guncelle", new { veri.id }, new { @class = "btn btn-info mx-4" })</td>
+
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Sil_@veri.id">
+                                            Sil
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="Sil_@veri.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Ürün Sil</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <h4>Ürünü silmek istiyor musunuz?</h4>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary mx-4" data-dismiss="modal">Vazgeç</button>
+                                                        @Html.ActionLink("Sil", "Sil", new { veri.id }, new { @class = "btn btn-danger mx-4" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+    <!-- Sticky Footer -->
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
+</div>
+
+@section scripts
+    {
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.aktifPasif').click(function (event) {
+                var id = $(this).attr("id");  //id değerini alıyoruz
+
+                var durum = ($(this).is(':checked')) ? '1' : '0';
+                 //checkbox a göre aktif mi pasif mi bilgisini alıyoruz.
+
+                $.ajax({
+                    type: 'POST',
+                    url: '/urunler/aktif',  //işlem yaptığımız sayfayı belirtiyoruz
+                    data: '{ id:' + id + ',durum:' + durum + '}', //datamızı yolluyoruz
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json',
+                    success: function (result) {
+
+                        //gelen sonucu h2 tagında gösteriyoruz
+                    },
+                    
+                });
+
+            });
+        });
+
+
+      
+    </script>
+
+
+    <script>
+        $('#dataTable').DataTable({
+            language: {
+                info: "_TOTAL_ kayıttan _START_ - _END_ kayıt gösteriliyor.",
+                infoEmpty: "Gösterilecek hiç kayıt yok.",
+                loadingRecords: "Kayıtlar yükleniyor.",
+                zeroRecords: "Tablo boş",
+                search: "Arama:",
+                sLengthMenu: "Sayfada _MENU_ kayıt göster",
+                infoFiltered: "(toplam _MAX_ kayıttan filtrelenenler)",
+                buttons: {
+                    copyTitle: "Panoya kopyalandı.",
+                    copySuccess: "Panoya %d satır kopyalandı",
+                    copy: "Kopyala",
+                    print: "Yazdır",
+                },
+
+                paginate: {
+                    first: "İlk",
+                    previous: "Önceki",
+                    next: "Sonraki",
+                    last: "Son"
+                },
+            }
+        });
+    </script>
+
+   
+}
+

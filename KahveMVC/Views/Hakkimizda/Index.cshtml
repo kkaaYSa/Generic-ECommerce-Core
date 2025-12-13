@@ -1,0 +1,94 @@
+﻿@model KahveMVC.Models.EntityFramework.hakkimizda
+@{
+    ViewBag.Title = "Hakkımızda";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active"><a href="/Hakkimizda/Index">Hakkımızda</a></li>
+        </ol>
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+            <div class="card-header">
+                <i class="fas fa-table"></i>
+              Hakkımızda
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered"  width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Foto</th>
+                                <th>Üst Başlık</th>
+                                <th>Başlık</th>
+                                <th>İçerik</th>
+                                <th>Güncelle</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                          
+                                <tr>
+                                    <td><img src="~/Content/img/@Model.foto" width="150" /></td>
+                                    <td>@Model.ustBaslik</td>
+                                    <td>@Model.baslik</td>
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter">
+                                            İçerik
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">İçerik</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        @Html.Raw(Model.icerik)
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
+                                                       
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                 
+                                    <td>
+                                        @Html.ActionLink("Güncelle", "HakkimizdaGuncelle", null, new { @class = "btn btn-info" })
+                                    </td>
+
+                                </tr>
+                            
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+    <!-- Sticky Footer -->
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
+</div>
+

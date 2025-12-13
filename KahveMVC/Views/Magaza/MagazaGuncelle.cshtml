@@ -1,0 +1,68 @@
+﻿@model KahveMVC.Models.EntityFramework.magaza
+@{
+    ViewBag.Title = "Mağaza";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="container">
+    <h2>Mağaza Güncelleme Sayfası</h2>
+    @using (Html.BeginForm("Kaydet", "Magaza", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+        <table class="table table-bordered">
+
+            <tr>
+                <td>Üst Başlık</td>
+                <td>
+                    @Html.TextBoxFor(m => m.ustBaslik, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.ustBaslik)
+                </td>
+            </tr>
+            <tr>
+                <td>Ana Başlık</td>
+                <td>
+                    @Html.TextBoxFor(m => m.anaBaslik, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.anaBaslik)
+                </td>
+            </tr>
+            <tr>
+                <td>Adres</td>
+                <td>
+                    @Html.TextAreaFor(m => m.adres, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.adres)
+                </td>
+            </tr>
+            <tr>
+                <td>Telefon</td>
+                <td>
+                    @Html.TextAreaFor(m => m.telefon, new { @class = "form-control" })
+                    @Html.ValidationMessageFor(m => m.telefon)
+                </td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>
+                    @Html.HiddenFor(m => m.id)
+
+                    <input type="submit" value="Kaydet" class="btn btn-success" />
+                </td>
+            </tr>
+
+        </table>
+    }
+</div>
+
+
+@section scripts
+    {
+
+    <script src="~/Content/ckeditor5-build-classic/ckeditor.js"></script>
+    <script>
+
+        ClassicEditor
+            .create(document.querySelector('#adres'))
+            .catch(error => {
+                console.log(error);
+            });
+    </script>
+}

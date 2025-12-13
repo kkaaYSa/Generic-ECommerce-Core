@@ -1,0 +1,88 @@
+﻿@model KahveMVC.Models.EntityFramework.anasayfa
+@{
+    ViewBag.Title = "Ana Sayfa";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<div class="container">
+    <h2>Ana Sayfa Güncelle Sayfası</h2>
+    @using (Html.BeginForm("Kaydet", "Anasayfa", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+    {
+<table class="table table-bordered">
+    <tr>
+        <td>Foto</td>
+        <td>
+            <img src="~/Content/img/@Model.foto" width="250" /> <br />
+            @Html.TextBoxFor(m => m.fotoFile, new { type = "file" })
+        </td>
+    </tr>
+    <tr>
+        <td>Üst Başlık</td>
+        <td>
+            @Html.TextBoxFor(m => m.ustBaslik, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ustBaslik)
+        </td>
+    </tr>
+    <tr>
+        <td>Üst İçerik</td>
+        <td>
+            @Html.TextAreaFor(m => m.ustIcerik, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ustIcerik)
+        </td>
+    </tr>
+
+    <tr>
+        <td>Alt Başlık</td>
+        <td>
+            @Html.TextBoxFor(m => m.altBaslik, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.altBaslik)
+        </td>
+    </tr>
+    <tr>
+        <td>Alt İçerik</td>
+        <td>
+            @Html.TextAreaFor(m => m.altIcerik, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.altIcerik)
+        </td>
+    </tr>
+    <tr>
+        <td>Link</td>
+        <td>
+            @Html.TextBoxFor(m => m.link, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.link)
+        </td>
+    </tr>
+    <tr>
+        <td></td>
+        <td>
+            @Html.HiddenFor(m => m.id)
+            @Html.HiddenFor(m => m.foto)
+            <input type="submit" value="Kaydet" class="btn btn-success" />
+        </td>
+    </tr>
+
+</table>
+    }
+</div>
+
+
+@section scripts
+    {
+
+    <script src="~/Content/ckeditor5-build-classic/ckeditor.js"></script>
+    <script>
+
+        ClassicEditor
+            .create(document.querySelector('#ustIcerik'))
+            .catch(error => {
+                console.log(error);
+            });
+
+                ClassicEditor
+            .create(document.querySelector('#altIcerik'))
+            .catch(error => {
+                console.log(error);
+            });
+    </script>
+}

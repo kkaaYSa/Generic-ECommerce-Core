@@ -1,0 +1,118 @@
+﻿@model List<KahveMVC.Models.EntityFramework.kullanici>
+@{
+    ViewBag.Title = "Kullanıcılar";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script src="~/Scripts/sweetalert.min.js"></script>
+
+@if (TempData["Sil"] != null)
+{
+    <script>
+        swal("Kullanıcı silindi", "Tebrikler", "info");
+    </script>
+}
+
+@if (TempData["Guncelle"] != null)
+{
+    <script>
+        swal("Kullanıcı güncellendi", "Tebrikler", "success");
+    </script>
+}
+@if (TempData["Ekle"] != null)
+{
+    <script>
+        swal("Kullanıcı eklendi", "Tebrikler", "success");
+    </script>
+}
+<link href="~/Content/admin/switch.css" rel="stylesheet" />
+
+<div id="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Kullanıcılar</li>
+        </ol>
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+            <div class="card-header">
+
+                <h4><i class="fas fa-table"></i>Kullanıcı listesi</h4> <br />
+                @Html.ActionLink("Yeni Kullanıcı Ekle", "Yeni", null, new { @class = "btn btn-primary mx-4" })
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered"  width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Kullanıcı Adı</th>
+                                <th>Güncelle</th>
+                                <th>Sil</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var veri in Model)
+                            {
+                                <tr>
+
+                                    <td>@veri.ad</td>
+                                   
+                                    <td> @Html.ActionLink("Güncelle", "Guncelle", new { veri.id }, new { @class = "btn btn-info mx-4" })</td>
+
+                                    <td>
+                                        <!-- Button trigger modal -->
+                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Sil_@veri.id">
+                                            Sil
+                                        </button>
+
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="Sil_@veri.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLongTitle">Ürün Sil</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <h4>Ürünü silmek istiyor musunuz?</h4>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary mx-4" data-dismiss="modal">Vazgeç</button>
+                                                        @Html.ActionLink("Sil", "Sil", new { veri.id }, new { @class = "btn btn-danger mx-4" })
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+    <!-- Sticky Footer -->
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+

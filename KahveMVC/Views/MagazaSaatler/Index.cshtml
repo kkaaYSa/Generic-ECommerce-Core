@@ -1,0 +1,79 @@
+﻿@model List<KahveMVC.Models.EntityFramework.magazasaat>
+@{
+    ViewBag.Title = "Mağaza Saatler";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script src="~/Scripts/sweetalert.min.js"></script>
+
+
+
+@if (TempData["saatGuncelle"] != null)
+{
+    <script>
+        swal("Saat güncellendi", "Tebrikler", "success");
+    </script>
+}
+
+<link href="~/Content/admin/switch.css" rel="stylesheet" />
+
+<div id="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Mağaza Saatler</li>
+        </ol>
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+            <div class="card-header">
+
+                <h6><i class="fas fa-table"></i>Mağaza Saatler</h6> 
+               
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" width="100%" cellspacing="0">
+                        <thead>
+                            <tr>
+                                <th>Gün</th>
+                                <th>Saat</th>                               
+                                <th>Güncelle</th>
+                                
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            @foreach (var veri in Model)
+                            {
+                                <tr>
+                                   
+                                    <td>@veri.gun</td>
+                                    <td>@veri.saat</td>
+                                    
+                                    <td> @Html.ActionLink("Güncelle", "MagazaSaatGuncelle", new { veri.id }, new { @class = "btn btn-info mx-4" })</td>
+
+                                    
+
+                                </tr>
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+    <!-- Sticky Footer -->
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
+</div>

@@ -1,0 +1,125 @@
+﻿@model KahveMVC.Models.EntityFramework.urunler
+@{
+    ViewBag.Title = "Ürünler";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="content-wrapper">
+    <div class="container-fluid">
+        <!-- Breadcrumbs-->
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="#">Dashboard</a>
+            </li>
+            <li class="breadcrumb-item active">Ürünler</li>
+        </ol>
+        <!-- DataTables Example -->
+        <div class="card mb-3">
+            <div class="card-header">
+
+                <h4><i class="fas fa-table"></i>Ürün formu</h4> <br />
+
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    @using (Html.BeginForm("Kaydet", "Urunler", FormMethod.Post, new { @enctype = "multipart/form-data" }))
+                    {
+                        <table class="table table-bordered" width="100%" cellspacing="0">
+                            <tr>
+                                <td>Foto</td>
+                                <td>
+                                    @if (Model.foto != null)
+                                    {
+                                        <img src="~/Content/img/@Model.foto" width="250" /> <br />
+
+                                    }
+
+                                    @Html.TextBoxFor(m => m.fotoFile, new { type = "file" })
+                                    @if (ViewBag.HataFoto != null)
+                                    {
+                                        <span class="field-validation-error" data-valmsg-for="ustBaslik" data-valmsg-replace="true"> @ViewBag.HataFoto</span>
+
+                                    }
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Üst Başlık</td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.ustBaslik, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.ustBaslik)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Başlık</td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.baslik, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.baslik)
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>İçerik</td>
+                                <td>
+                                  
+                                    @Html.TextAreaFor(m => m.icerik, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.icerik)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Sıra</td>
+                                <td>@Html.TextBoxFor(m => m.sira, new { @class = "form-control" })</td>
+                            </tr>
+
+                            <tr>
+
+                                <td></td>
+                                <td>
+                                    <label> @Html.CheckBoxFor(m => m.aktif) Aktif mi?</label>
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td></td>
+                                <td>
+                                    @Html.HiddenFor(m => m.id)
+                                    @Html.HiddenFor(m => m.foto)
+                                    <input type="submit" value="Kaydet" class="btn btn-success" />
+                                </td>
+                            </tr>
+                        </table>
+                    }
+                </div>
+            </div>
+            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+    <!-- Sticky Footer -->
+    <footer class="sticky-footer">
+        <div class="container my-auto">
+            <div class="copyright text-center my-auto">
+                <span>Copyright © Your Website 2019</span>
+            </div>
+        </div>
+    </footer>
+</div>
+
+
+
+
+@section scripts
+    {
+
+    <script src="~/Content/ckeditor5-build-classic/ckeditor.js"></script>
+    <script>
+
+        ClassicEditor
+            .create(document.querySelector('#icerik'))
+            .catch(error => {
+                console.log(error);
+            });
+    </script>
+}

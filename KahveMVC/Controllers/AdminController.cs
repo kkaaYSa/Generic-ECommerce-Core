@@ -9,10 +9,10 @@ namespace KahveMVC.Controllers
     [Authorize]
     public class AdminController : Controller
     {
-        [Route("admin")]
+        
         public ActionResult Index()
         {
-            return RedirectToAction("/index","urunler");
+            return RedirectToAction("Index", "Default");
         }
     }
 }

@@ -13,6 +13,13 @@ namespace KahveMVC.Controllers
         // GET: Urunler
         public ActionResult Index()
         {
+            // 1. GÜVENLİK BEKÇİSİ (Yönetici değilse anasayfaya kışkışla)
+            if (Session["Rol"] == null || (Session["Rol"].ToString() != "Yonetici" && Session["Rol"].ToString() != "Admin"))
+            {
+                return RedirectToAction("Index", "Default");
+            }
+
+            // 2. VERİLERİ GETİR VE SAYFAYI AÇ
             using (kahve2019Entities db = new kahve2019Entities())
             {
                 var model = db.urunler.ToList();

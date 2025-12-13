@@ -34,6 +34,28 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
+                @if (Session["Rol"] != null && (Session["Rol"].ToString() == "Yonetici" || Session["Rol"].ToString() == "Admin"))
+                {
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" style="color: red !important; font-weight:bold;" href="/Urunler">Yönetim Paneli</a>
+                    </li>
+                }
+
+                @if (Session["KullaniciAdi"] == null)
+                {
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="/Login">Giriş Yap</a>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="#">@Session["KullaniciAdi"]</a>
+                    </li>
+                    <li class="nav-item px-lg-4">
+                        <a class="nav-link text-uppercase text-expanded" href="/Login/Logout">Çıkış</a>
+                    </li>
+                }
                 <ul class="navbar-nav mx-auto">
                     <li class="nav-item px-lg-4 @(ViewBag.Title=="Ana Sayfa"?"active":"")">
                         <a class="nav-link text-uppercase text-expanded" href="/">Ana Sayfa</a>
@@ -43,7 +65,7 @@
                     </li>
                     @*<li class="nav-item px-lg-4 @(Request.Url.AbsolutePath=="/urunler"?"active":"")">*@
                     <li class="nav-item px-lg-4 @(ViewBag.Title=="Ürünler"?"active":"")">
-                        <a class="nav-link text-uppercase text-expanded" href="/urunler">Ürünler</a>
+                        <a class="nav-link text-uppercase text-expanded" href="/musteri">Ürünler</a>
                     </li>
                     <li class="nav-item px-lg-4 @(ViewBag.Title=="Magaza"?"active":"")">
                         <a class="nav-link text-uppercase text-expanded" href="/magaza">Magaza</a>
@@ -51,6 +73,7 @@
                     <li class="nav-item px-lg-4 @(ViewBag.Title=="İletişim"?"active":"")">
                         <a class="nav-link text-uppercase text-expanded" href="/iletisim">İletişim</a>
                     </li>
+                    
                 </ul>
             </div>
         </div>

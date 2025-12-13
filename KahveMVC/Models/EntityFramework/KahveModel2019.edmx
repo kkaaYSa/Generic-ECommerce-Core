@@ -46,6 +46,7 @@
           <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ad" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="sifre" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Rol" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="magaza">
           <Key>
@@ -131,6 +132,7 @@
           <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="magaza">
           <Key>
@@ -217,6 +219,7 @@
           <EntitySetMapping Name="kullanici">
             <EntityTypeMapping TypeName="kahveModel.kullanici">
               <MappingFragment StoreEntitySet="kullanici">
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="ad" ColumnName="ad" />
                 <ScalarProperty Name="sifre" ColumnName="sifre" />

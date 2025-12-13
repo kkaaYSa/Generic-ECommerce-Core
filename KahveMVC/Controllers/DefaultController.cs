@@ -19,7 +19,7 @@ namespace KahveMVC.Controllers
             return View(model);
         }
 
-        [Route("urunler")]
+        [Route("musteri")]
         public ActionResult Urunler()
         {
             //tüm ürünleri getirir

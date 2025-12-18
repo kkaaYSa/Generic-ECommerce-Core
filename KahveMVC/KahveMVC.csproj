@@ -1933,6 +1933,7 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MagazaController.cs" />
     <Compile Include="Controllers\MagazaSaatlerController.cs" />
+    <Compile Include="Controllers\SepetController.cs" />
     <Compile Include="Controllers\Sifrele.cs" />
     <Compile Include="Controllers\Turkce.cs" />
     <Compile Include="Controllers\UrunlerController.cs" />
@@ -1976,6 +1977,7 @@
       <DependentUpon>KahveModel2019.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PartialClasses.cs" />
+    <Compile Include="Models\SepetUrun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\MagazaViewModel.cs" />
   </ItemGroup>
@@ -2016,6 +2018,7 @@
     <Content Include="Views\MagazaSaatler\MagazaSaatGuncelle.cshtml" />
     <Content Include="Views\Kullanici\Index.cshtml" />
     <Content Include="Views\Kullanici\KullaniciForm.cshtml" />
+    <Content Include="Views\Sepet\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -28,14 +28,12 @@
 
 <div id="content-wrapper">
     <div class="container-fluid">
-        <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
                 <a href="#">Dashboard</a>
             </li>
             <li class="breadcrumb-item active">Ürünler</li>
         </ol>
-        <!-- DataTables Example -->
         <div class="card mb-3">
             <div class="card-header">
 
@@ -66,12 +64,10 @@
                                     <td>@veri.ustBaslik</td>
                                     <td>@veri.baslik</td>
                                     <td>
-                                        <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter_@veri.id">
                                             İçeriği Oku
                                         </button>
 
-                                        <!-- Modal -->
                                         <div class="modal fade" id="exampleModalCenter_@veri.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
@@ -93,7 +89,6 @@
                                         </div>
                                     </td>
                                     <td>
-                                        @*<img src="~/Content/img/simge/@(veri.aktif == true ? "1.png" : "0.png")" />*@
                                         <label class="switch">
                                             <input type="checkbox" id='@veri.id' class="aktifPasif" @(veri.aktif == true ? "checked" : "") />
                                             <span class="slider round"></span>
@@ -103,12 +98,10 @@
                                     <td> @Html.ActionLink("Güncelle", "Guncelle", new { veri.id }, new { @class = "btn btn-info mx-4" })</td>
 
                                     <td>
-                                        <!-- Button trigger modal -->
                                         <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Sil_@veri.id">
                                             Sil
                                         </button>
 
-                                        <!-- Modal -->
                                         <div class="modal fade" id="Sil_@veri.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
@@ -138,12 +131,10 @@
                     </table>
                 </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            <div class="card-footer small text-muted">Güncellendi</div>
         </div>
 
     </div>
-    <!-- /.container-fluid -->
-    <!-- Sticky Footer -->
     <footer class="sticky-footer">
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
@@ -154,34 +145,25 @@
 </div>
 
 @section scripts
-    {
-
+{
     <script type="text/javascript">
         $(document).ready(function () {
             $('.aktifPasif').click(function (event) {
-                var id = $(this).attr("id");  //id değerini alıyoruz
-
+                var id = $(this).attr("id");
                 var durum = ($(this).is(':checked')) ? '1' : '0';
-                 //checkbox a göre aktif mi pasif mi bilgisini alıyoruz.
 
                 $.ajax({
                     type: 'POST',
-                    url: '/urunler/aktif',  //işlem yaptığımız sayfayı belirtiyoruz
-                    data: '{ id:' + id + ',durum:' + durum + '}', //datamızı yolluyoruz
+                    url: '/urunler/aktif',
+                    data: '{ id:' + id + ',durum:' + durum + '}',
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json',
                     success: function (result) {
-
-                        //gelen sonucu h2 tagında gösteriyoruz
+                        // Başarılı
                     },
-                    
                 });
-
             });
         });
-
-
-      
     </script>
 
 
@@ -201,7 +183,6 @@
                     copy: "Kopyala",
                     print: "Yazdır",
                 },
-
                 paginate: {
                     first: "İlk",
                     previous: "Önceki",
@@ -211,7 +192,4 @@
             }
         });
     </script>
-
-   
 }
-

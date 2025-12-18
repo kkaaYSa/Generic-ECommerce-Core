@@ -11,7 +11,7 @@
         <EntityTypeShape EntityType="kahveModel.kullanici" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="kahveModel.magaza" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="kahveModel.magazasaat" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="kahveModel.urunler" Width="1.5" PointX="5.375" PointY="6.75" />
+        <EntityTypeShape EntityType="kahveModel.urunler" Width="1.5" PointX="6.75" PointY="3.875" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

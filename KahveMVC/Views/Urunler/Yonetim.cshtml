@@ -1,0 +1,69 @@
+﻿@model List<KahveMVC.Models.EntityFramework.urunler>
+@{
+    ViewBag.Title = "Ürünlerimiz";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Burası Müşteri Layout'u olacak
+}
+
+<section class="page-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mb-5">
+                <h2 class="section-heading">
+                    <span class="section-heading-lower">Lezzet Kataloğu</span>
+                    <span class="section-heading-upper">Detay ve Sipariş İçin Resme Tıklayın</span>
+                </h2>
+            </div>
+        </div>
+
+        <div class="row">
+            @foreach (var urun in Model)
+            {
+                <div class="col-md-4 mb-5">
+                    <div class="card h-100 shadow-sm border-0 bg-faded rounded">
+
+                        <div class="urun-resim-kutusu" style="cursor: pointer; position: relative; overflow:hidden;" onclick="detayAc(@urun.id)">
+                            <img class="card-img-top rounded" src="~/Content/img/@urun.foto" alt="@urun.baslik"
+                                 style="height: 300px; object-fit: cover; transition: transform 0.3s ease;">
+
+                            <div class="text-center p-2 bg-dark text-white w-100" style="position:absolute; bottom:0; opacity:0.8;">
+                                @urun.baslik <small>(İncelemek için Tıkla)</small>
+                            </div>
+                        </div>
+
+                        <div id="detay-@urun.id" class="card-body text-center" style="display: none; background-color: #f8f9fa;">
+                            <h5 class="card-title text-primary">@urun.baslik</h5>
+                            <p class="card-text">@urun.icerik</p>
+
+                            <hr />
+                            <h4 class="text-dark">50.00 TL</h4>
+
+                            <a href="/Sepet/SepeteEkle/@urun.id" class="btn btn-warning btn-block font-weight-bold">
+                                Sepete Ekle
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+    function detayAc(id) {
+        var kutuId = "detay-" + id;
+        var kutu = document.getElementById(kutuId);
+
+        // Eğer jQuery varsa (Genelde MVC projelerinde vardır)
+        if (typeof $ !== 'undefined') {
+            $("#" + kutuId).slideToggle("fast");
+        } else {
+            // jQuery yoksa düz aç kapa
+            if (kutu.style.display === "none") {
+                kutu.style.display = "block";
+            } else {
+                kutu.style.display = "none";
+            }
+        }
+    }
+</script>

@@ -37,7 +37,7 @@
                 @if (Session["Rol"] != null && (Session["Rol"].ToString() == "Yonetici" || Session["Rol"].ToString() == "Admin"))
                 {
                     <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" style="color: red !important; font-weight:bold;" href="/Urunler/Index">Yönetim Paneli</a>
+                        <a class="nav-link text-uppercase text-expanded" style="color: red !important; font-weight:bold;" href="/Anasayfa/Index">Yönetim Paneli</a>
                     </li>
                 }
 
@@ -65,7 +65,7 @@
                     </li>
                     @*<li class="nav-item px-lg-4 @(Request.Url.AbsolutePath=="/urunler"?"active":"")">*@
                     <li class="nav-item px-lg-4 @(ViewBag.Title=="Ürünler"?"active":"")">
-                        <a class="nav-link text-uppercase text-expanded" href="/urunler">Ürünler</a>
+                        <a class="nav-link text-uppercase text-expanded" href="/Murunler">Ürünler</a>
                     </li>
                     <li class="nav-item px-lg-4 @(ViewBag.Title=="Magaza"?"active":"")">
                         <a class="nav-link text-uppercase text-expanded" href="/magaza">Magaza</a>

@@ -137,7 +137,7 @@ namespace KahveMVC.Controllers
 
 
                 TempData["urunSil"] = "silindi";
-                return RedirectToAction("/index", "Urunler");
+                return RedirectToAction("/index", "Murunler");
             }
 
         }

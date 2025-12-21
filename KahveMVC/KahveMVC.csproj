@@ -1997,7 +1997,7 @@
     <Content Include="Content\vendor\jquery\jquery.min.map" />
     <Content Include="Content\vendor\jquery\jquery.slim.min.map" />
     <None Include="packages.config" />
-    <Content Include="Views\Default\Urunler.cshtml" />
+    <Content Include="Views\Default\Murunler.cshtml" />
     <Content Include="Views\Default\Hakkimizda.cshtml" />
     <Content Include="Views\Default\Magaza.cshtml" />
     <Content Include="Views\Default\Iletisim.cshtml" />

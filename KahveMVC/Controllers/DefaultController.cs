@@ -19,8 +19,8 @@ namespace KahveMVC.Controllers
             return View(model);
         }
 
-        [Route("urunler")]
-        public ActionResult Urunler()
+        [Route("Murunler")]
+        public ActionResult Murunler()
         {
             //tüm ürünleri getirir
             //tüm ürünleri getirir
@@ -32,7 +32,7 @@ namespace KahveMVC.Controllers
             //var mod = db.urunler.Where(x => x.aktif.Equals(1)).OrderByDescending(a => a.sira).ToList();
 
             var model = db.urunler.Where(x=>x.aktif==true).OrderBy(x => x.sira).ToList();
-            return View(model);
+            return View( model);
         }
 
         [Route("urun/{id}/{baslik}")]

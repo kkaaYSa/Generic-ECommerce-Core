@@ -77,6 +77,7 @@
           <Property Name="icerik" Type="nvarchar(max)" Nullable="false" />
           <Property Name="aktif" Type="bit" Nullable="false" />
           <Property Name="sira" Type="int" Nullable="false" />
+          <Property Name="Fiyat" Type="int" />
         </EntityType>
         <EntityContainer Name="kahveModelStoreContainer">
           <EntitySet Name="anasayfa" EntityType="Self.anasayfa" Schema="dbo" store:Type="Tables" />
@@ -172,6 +173,7 @@
           <Property Name="icerik" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="aktif" Type="Boolean" Nullable="false" />
           <Property Name="sira" Type="Int32" Nullable="false" />
+          <Property Name="Fiyat" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -249,6 +251,7 @@
           <EntitySetMapping Name="urunler">
             <EntityTypeMapping TypeName="kahveModel.urunler">
               <MappingFragment StoreEntitySet="urunler">
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
                 <ScalarProperty Name="sira" ColumnName="sira" />
                 <ScalarProperty Name="aktif" ColumnName="aktif" />
                 <ScalarProperty Name="icerik" ColumnName="icerik" />

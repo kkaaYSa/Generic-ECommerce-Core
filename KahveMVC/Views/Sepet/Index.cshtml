@@ -31,20 +31,42 @@
                                     @foreach (var item in Model)
                                     {
                                         <tr>
-                                            <td style="vertical-align: middle;">
-                                                @if (!string.IsNullOrEmpty(item.Resim))
-                                                {
-                                                    <img src="@item.Resim" width="50" height="50" style="border-radius:50%; margin-right:10px;" />
-                                                }
-                                                @item.UrunAd
+                                            <td>
+                                                <img src="~/Content/img/@item.Resim" width="100" height="70" style="object-fit:cover; border-radius:5px;" />
                                             </td>
-                                            <td style="vertical-align: middle;">@item.adet</td>
-                                            <td style="vertical-align: middle;">@item.fiyat TL</td>
-                                            <td style="vertical-align: middle; font-weight:bold;">@item.ToplamTutar TL</td>
+
+                                            <td style="vertical-align: middle;">@item.UrunAd</td>
+
                                             <td style="vertical-align: middle;">
-                                                <a href="#" class="btn btn-danger btn-sm">Sil</a>
+                                                <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                                                    <a href="/Sepet/AdetAzalt/@item.UrunId" class="btn btn-sm btn-danger">-</a>
+                                                    <span style="font-weight: bold; font-size: 1.1em;">@item.adet</span>
+                                                    <a href="/Sepet/AdetArttir/@item.UrunId" class="btn btn-sm btn-success">+</a>
+                                                </div>
+                                            </td>
+
+                                            <td style="vertical-align: middle;">@item.fiyat ₺</td>
+
+                                            <td style="vertical-align: middle; font-weight: bold; color: #28a745;">
+                                                @(item.fiyat * item.adet) ₺
+                                            </td>
+
+                                            <td style="vertical-align: middle;">
+                                                <a href="/Sepet/SepettenSil/@item.UrunId" class="btn btn-danger btn-sm">Sil</a>
                                             </td>
                                         </tr>
+                                    }
+
+                                    @if (Model.Count > 0)
+                                    {
+                                        <tr style="background-color: #f8f9fa;">
+                                            <td colspan="4" style="text-align: right; font-weight: bold;">GENEL TOPLAM:</td>
+                                            <td style="font-weight: bold; font-size: 1.2em; color: #d9534f;">
+                                                @(Model.Sum(x => x.fiyat * x.adet)) ₺
+                                            </td>
+                                            <td></td>
+                                        </tr>
+
                                     }
                                 </tbody>
                                 <tfoot>
@@ -58,7 +80,7 @@
                             </table>
 
                             <div class="text-center mt-4">
-                                <a href="/Murunler/Index" class="btn btn-secondary">Alışverişe Devam Et</a>
+                                <a href="/Murunler" class="btn btn-secondary">Alışverişe Devam Et</a>
                                 <a href="#" class="btn btn-primary ml-2">Sepeti Onayla</a>
                             </div>
                         }
@@ -67,7 +89,7 @@
                             <div class="alert alert-warning text-center">
                                 <h4>Sepetinizde henüz ürün bulunmamaktadır.</h4>
                                 <p>Lezzetli kahvelerimize göz atmak ister misiniz?</p>
-                                <a href="/Murunler/Index" class="btn btn-primary mt-3">Ürünlere Git</a>
+                                <a href="/Murunler" class="btn btn-warning font-weight-bold">Ürünlere Git</a>
                             </div>
                         }
                     </div>

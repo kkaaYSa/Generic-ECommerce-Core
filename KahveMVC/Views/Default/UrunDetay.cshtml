@@ -19,8 +19,31 @@
                 <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="~/Content/img/@Model.foto" alt="">
                 <div class="product-item-description d-flex mr-auto">
                     <div class="bg-faded p-5 rounded">
-                        @Html.Raw(Model.icerik)
-                      
+
+                        <div class="mb-4">
+                            @Html.Raw(Model.icerik)
+                        </div>
+
+                        <hr style="border-top: 1px solid rgba(0,0,0,0.1);">
+
+                        <div class="d-flex flex-column">
+                            <h3 class="text-primary font-weight-bold mb-3">
+                                @(Model.Fiyat != 0 ? Model.Fiyat : 50) ₺
+                            </h3>
+
+                            <div class="d-flex align-items-center">
+
+                                <a href="/Sepet/SepeteEkle/@Model.id" class="btn btn-warning text-white font-weight-bold px-4 py-3 mr-3 shadow-sm">
+                                    🛒 Sepete Ekle
+                                </a>
+
+                                <a href="/Murunler" class="btn btn-outline-dark font-weight-bold px-4 py-3 shadow-sm">
+                                    🔙 Menüye Dön
+                                </a>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>

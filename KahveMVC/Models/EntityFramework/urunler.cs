@@ -21,5 +21,6 @@ namespace KahveMVC.Models.EntityFramework
         public string icerik { get; set; }
         public bool aktif { get; set; }
         public int sira { get; set; }
+        public Nullable<int> Fiyat { get; set; }
     }
 }

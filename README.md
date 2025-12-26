@@ -38,17 +38,6 @@ Kullanıcıların mobilya ürünlerini detaylı inceleyebileceği, stok durumuna
 * **Sipariş Takibi:** Gelen siparişleri listeleme ve durum güncelleme (Bekliyor, Kargolandı vb.).
 * **Görsel Editör:** Ürün açıklamaları için HTML destekli metin editörü.
 
-## 📸 Ekran Görüntüleri
-
-| Ana Sayfa & Slider | Ürün Detay & Stok Uyarısı |
-| :---: | :---: |
-| <img src="https://via.placeholder.com/400x200?text=Ana+Sayfa" width="400"> | <img src="https://via.placeholder.com/400x200?text=Urun+Detay" width="400"> |
-
-| Sepet & Ödeme | Admin Paneli |
-| :---: | :---: |
-| <img src="https://via.placeholder.com/400x200?text=Sepet" width="400"> | <img src="https://via.placeholder.com/400x200?text=Admin" width="400"> |
-
-*(Not: Ekran görüntüleri projenin son haline aittir.)*
 
 ## 💾 Kurulum
 

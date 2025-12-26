@@ -1,0 +1,444 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MobilyaDbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="anasayfa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="foto" Type="nvarchar" MaxLength="250" />
+          <Property Name="ustBaslik" Type="nvarchar" MaxLength="250" />
+          <Property Name="ustIcerik" Type="nvarchar(max)" />
+          <Property Name="link" Type="nvarchar" MaxLength="50" />
+          <Property Name="altBaslik" Type="nvarchar" MaxLength="250" />
+          <Property Name="altIcerik" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="hakkimizda">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="foto" Type="nvarchar" MaxLength="250" />
+          <Property Name="ustBaslik" Type="nvarchar" MaxLength="250" />
+          <Property Name="baslik" Type="nvarchar" MaxLength="250" />
+          <Property Name="icerik" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="iletisimformu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adSoyad" Type="nvarchar" MaxLength="100" />
+          <Property Name="eposta" Type="nvarchar" MaxLength="100" />
+          <Property Name="mesaj" Type="nvarchar(max)" />
+          <Property Name="cinsiyet" Type="bit" Nullable="false" />
+          <Property Name="izin" Type="bit" Nullable="false" />
+          <Property Name="tarih" Type="datetime" />
+        </EntityType>
+        <EntityType Name="kullanici">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ad" Type="nvarchar" MaxLength="50" />
+          <Property Name="sifre" Type="nvarchar" MaxLength="50" />
+          <Property Name="Rol" Type="nvarchar" MaxLength="50" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="50" />
+          <Property Name="adres" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="magaza">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ustBaslik" Type="nvarchar" MaxLength="250" />
+          <Property Name="anaBaslik" Type="nvarchar" MaxLength="250" />
+          <Property Name="adres" Type="nvarchar(max)" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="magazasaat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="gun" Type="nvarchar" MaxLength="50" />
+          <Property Name="saat" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="siparis">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="adSoyad" Type="nvarchar" MaxLength="150" />
+          <Property Name="telefon" Type="nvarchar" MaxLength="50" />
+          <Property Name="adres" Type="nvarchar(max)" />
+          <Property Name="tarih" Type="datetime" />
+          <Property Name="toplamTutar" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="durum" Type="nvarchar" MaxLength="50" />
+          <Property Name="kullaniciId" Type="int" />
+        </EntityType>
+        <EntityType Name="siparisdetay">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="siparisId" Type="int" Nullable="false" />
+          <Property Name="urunId" Type="int" />
+          <Property Name="fiyat" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="adet" Type="int" />
+        </EntityType>
+        <EntityType Name="urunler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="baslik" Type="nvarchar" MaxLength="150" />
+          <Property Name="ustBaslik" Type="nvarchar" MaxLength="150" />
+          <Property Name="icerik" Type="nvarchar(max)" />
+          <Property Name="foto" Type="nvarchar" MaxLength="250" />
+          <Property Name="Fiyat" Type="int" />
+          <Property Name="sira" Type="int" Nullable="false" />
+          <Property Name="aktif" Type="bit" Nullable="false" />
+          <Property Name="stok" Type="int" />
+        </EntityType>
+        <Association Name="FK_siparisdetay_siparis">
+          <End Role="siparis" Type="Self.siparis" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="siparisdetay" Type="Self.siparisdetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="siparis">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="siparisdetay">
+              <PropertyRef Name="siparisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_siparisdetay_urunler">
+          <End Role="urunler" Type="Self.urunler" Multiplicity="0..1" />
+          <End Role="siparisdetay" Type="Self.siparisdetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="urunler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="siparisdetay">
+              <PropertyRef Name="urunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="MobilyaDbModelStoreContainer">
+          <EntitySet Name="anasayfa" EntityType="Self.anasayfa" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="hakkimizda" EntityType="Self.hakkimizda" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="iletisimformu" EntityType="Self.iletisimformu" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="kullanici" EntityType="Self.kullanici" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="magaza" EntityType="Self.magaza" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="magazasaat" EntityType="Self.magazasaat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="siparis" EntityType="Self.siparis" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="siparisdetay" EntityType="Self.siparisdetay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="urunler" EntityType="Self.urunler" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_siparisdetay_siparis" Association="Self.FK_siparisdetay_siparis">
+            <End Role="siparis" EntitySet="siparis" />
+            <End Role="siparisdetay" EntitySet="siparisdetay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_siparisdetay_urunler" Association="Self.FK_siparisdetay_urunler">
+            <End Role="urunler" EntitySet="urunler" />
+            <End Role="siparisdetay" EntitySet="siparisdetay" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MobilyaDbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="anasayfa">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="foto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ustBaslik" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ustIcerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="link" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="altBaslik" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="altIcerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="hakkimizda">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="foto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ustBaslik" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="baslik" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="icerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="iletisimformu">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adSoyad" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="eposta" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="mesaj" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="cinsiyet" Type="Boolean" Nullable="false" />
+          <Property Name="izin" Type="Boolean" Nullable="false" />
+          <Property Name="tarih" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="kullanici">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ad" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="sifre" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Rol" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="magaza">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ustBaslik" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="anaBaslik" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="magazasaat">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="gun" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="saat" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="urunler">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="baslik" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="ustBaslik" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="icerik" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="foto" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="Fiyat" Type="Int32" />
+          <Property Name="sira" Type="Int32" Nullable="false" />
+          <Property Name="aktif" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="siparisdetay" Relationship="MobilyaDbModel.FK_siparisdetay_urunler" FromRole="urunler" ToRole="siparisdetay" />
+          <Property Name="stok" Type="Int32" />
+        </EntityType>
+        <EntityContainer Name="MobilyaDbEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="anasayfa" EntityType="Self.anasayfa" />
+          <EntitySet Name="hakkimizda" EntityType="Self.hakkimizda" />
+          <EntitySet Name="iletisimformu" EntityType="Self.iletisimformu" />
+          <EntitySet Name="kullanici" EntityType="Self.kullanici" />
+          <EntitySet Name="magaza" EntityType="Self.magaza" />
+          <EntitySet Name="magazasaat" EntityType="Self.magazasaat" />
+          <EntitySet Name="urunler" EntityType="Self.urunler" />
+          <EntitySet Name="siparis" EntityType="MobilyaDbModel.siparis" />
+          <EntitySet Name="siparisdetay" EntityType="MobilyaDbModel.siparisdetay" />
+          <AssociationSet Name="FK_siparisdetay_siparis" Association="MobilyaDbModel.FK_siparisdetay_siparis">
+            <End Role="siparis" EntitySet="siparis" />
+            <End Role="siparisdetay" EntitySet="siparisdetay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_siparisdetay_urunler" Association="MobilyaDbModel.FK_siparisdetay_urunler">
+            <End Role="urunler" EntitySet="urunler" />
+            <End Role="siparisdetay" EntitySet="siparisdetay" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="siparis">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="adSoyad" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="telefon" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="adres" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="tarih" Type="DateTime" Precision="3" />
+          <Property Name="toplamTutar" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="durum" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="kullaniciId" Type="Int32" />
+          <NavigationProperty Name="siparisdetay" Relationship="MobilyaDbModel.FK_siparisdetay_siparis" FromRole="siparis" ToRole="siparisdetay" />
+        </EntityType>
+        <EntityType Name="siparisdetay">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="siparisId" Type="Int32" Nullable="false" />
+          <Property Name="urunId" Type="Int32" />
+          <Property Name="fiyat" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="adet" Type="Int32" />
+          <NavigationProperty Name="siparis" Relationship="MobilyaDbModel.FK_siparisdetay_siparis" FromRole="siparisdetay" ToRole="siparis" />
+          <NavigationProperty Name="urunler" Relationship="MobilyaDbModel.FK_siparisdetay_urunler" FromRole="siparisdetay" ToRole="urunler" />
+        </EntityType>
+        <Association Name="FK_siparisdetay_siparis">
+          <End Type="MobilyaDbModel.siparis" Role="siparis" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="MobilyaDbModel.siparisdetay" Role="siparisdetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="siparis">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="siparisdetay">
+              <PropertyRef Name="siparisId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_siparisdetay_urunler">
+          <End Type="MobilyaDbModel.urunler" Role="urunler" Multiplicity="0..1" />
+          <End Type="MobilyaDbModel.siparisdetay" Role="siparisdetay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="urunler">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="siparisdetay">
+              <PropertyRef Name="urunId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MobilyaDbModelStoreContainer" CdmEntityContainer="MobilyaDbEntities">
+          <EntitySetMapping Name="anasayfa">
+            <EntityTypeMapping TypeName="MobilyaDbModel.anasayfa">
+              <MappingFragment StoreEntitySet="anasayfa">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="ustBaslik" ColumnName="ustBaslik" />
+                <ScalarProperty Name="ustIcerik" ColumnName="ustIcerik" />
+                <ScalarProperty Name="link" ColumnName="link" />
+                <ScalarProperty Name="altBaslik" ColumnName="altBaslik" />
+                <ScalarProperty Name="altIcerik" ColumnName="altIcerik" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hakkimizda">
+            <EntityTypeMapping TypeName="MobilyaDbModel.hakkimizda">
+              <MappingFragment StoreEntitySet="hakkimizda">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="ustBaslik" ColumnName="ustBaslik" />
+                <ScalarProperty Name="baslik" ColumnName="baslik" />
+                <ScalarProperty Name="icerik" ColumnName="icerik" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="iletisimformu">
+            <EntityTypeMapping TypeName="MobilyaDbModel.iletisimformu">
+              <MappingFragment StoreEntitySet="iletisimformu">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="adSoyad" ColumnName="adSoyad" />
+                <ScalarProperty Name="eposta" ColumnName="eposta" />
+                <ScalarProperty Name="mesaj" ColumnName="mesaj" />
+                <ScalarProperty Name="cinsiyet" ColumnName="cinsiyet" />
+                <ScalarProperty Name="izin" ColumnName="izin" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="kullanici">
+            <EntityTypeMapping TypeName="MobilyaDbModel.kullanici">
+              <MappingFragment StoreEntitySet="kullanici">
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ad" ColumnName="ad" />
+                <ScalarProperty Name="sifre" ColumnName="sifre" />
+                <ScalarProperty Name="Rol" ColumnName="Rol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="magaza">
+            <EntityTypeMapping TypeName="MobilyaDbModel.magaza">
+              <MappingFragment StoreEntitySet="magaza">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ustBaslik" ColumnName="ustBaslik" />
+                <ScalarProperty Name="anaBaslik" ColumnName="anaBaslik" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="magazasaat">
+            <EntityTypeMapping TypeName="MobilyaDbModel.magazasaat">
+              <MappingFragment StoreEntitySet="magazasaat">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="gun" ColumnName="gun" />
+                <ScalarProperty Name="saat" ColumnName="saat" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="urunler">
+            <EntityTypeMapping TypeName="MobilyaDbModel.urunler">
+              <MappingFragment StoreEntitySet="urunler">
+                <ScalarProperty Name="stok" ColumnName="stok" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="baslik" ColumnName="baslik" />
+                <ScalarProperty Name="ustBaslik" ColumnName="ustBaslik" />
+                <ScalarProperty Name="icerik" ColumnName="icerik" />
+                <ScalarProperty Name="foto" ColumnName="foto" />
+                <ScalarProperty Name="Fiyat" ColumnName="Fiyat" />
+                <ScalarProperty Name="sira" ColumnName="sira" />
+                <ScalarProperty Name="aktif" ColumnName="aktif" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="siparis">
+            <EntityTypeMapping TypeName="MobilyaDbModel.siparis">
+              <MappingFragment StoreEntitySet="siparis">
+                <ScalarProperty Name="kullaniciId" ColumnName="kullaniciId" />
+                <ScalarProperty Name="durum" ColumnName="durum" />
+                <ScalarProperty Name="toplamTutar" ColumnName="toplamTutar" />
+                <ScalarProperty Name="tarih" ColumnName="tarih" />
+                <ScalarProperty Name="adres" ColumnName="adres" />
+                <ScalarProperty Name="telefon" ColumnName="telefon" />
+                <ScalarProperty Name="adSoyad" ColumnName="adSoyad" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="siparisdetay">
+            <EntityTypeMapping TypeName="MobilyaDbModel.siparisdetay">
+              <MappingFragment StoreEntitySet="siparisdetay">
+                <ScalarProperty Name="adet" ColumnName="adet" />
+                <ScalarProperty Name="fiyat" ColumnName="fiyat" />
+                <ScalarProperty Name="urunId" ColumnName="urunId" />
+                <ScalarProperty Name="siparisId" ColumnName="siparisId" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

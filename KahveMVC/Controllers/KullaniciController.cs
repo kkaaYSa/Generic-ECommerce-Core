@@ -12,11 +12,17 @@ namespace KahveMVC.Controllers
     [Authorize]
     public class KullaniciController : Controller
     {
-        // GET: Kullanici
-        // GET: Urunler
+        // GET: Kullanici Listesi
         public ActionResult Index()
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            // 1. GÜVENLİK BEKÇİSİ (Sadece 'Yonetici' girebilir)
+            if (Session["Rol"] == null || Session["Rol"].ToString() != "Yonetici")
+            {
+                // Yetkin yok dayı, siparişlere git sen
+                return RedirectToAction("Index", "SiparisYonetim");
+            }
+
+            using (MobilyaDbEntities db = new MobilyaDbEntities())
             {
                 var model = db.kullanici.ToList();
                 return View(model);
@@ -25,83 +31,83 @@ namespace KahveMVC.Controllers
 
         public ActionResult Yeni()
         {
+            if (Session["Rol"]?.ToString() != "Yonetici") return RedirectToAction("Index", "SiparisYonetim");
+
             var model = new kullanici();
             return View("KullaniciForm", model);
-
         }
 
         public ActionResult Guncelle(int id)
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            if (Session["Rol"]?.ToString() != "Yonetici") return RedirectToAction("Index", "SiparisYonetim");
+
+            using (MobilyaDbEntities db = new MobilyaDbEntities())
             {
-
                 var model = db.kullanici.Find(id);
-
-                if (model == null)
-                {
-                    return HttpNotFound();
-                }
+                if (model == null) return HttpNotFound();
                 return View("KullaniciForm", model);
-
             }
-
         }
 
+        [HttpPost]
         public ActionResult Kaydet(kullanici gelenKullanici)
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            if (Session["Rol"]?.ToString() != "Yonetici") return RedirectToAction("Index", "SiparisYonetim");
+
+            using (MobilyaDbEntities db = new MobilyaDbEntities())
             {
-                if (!ModelState.IsValid) //formun doğru dolduruludu mu?
+                if (!ModelState.IsValid)
                 {
                     return View("KullaniciForm", gelenKullanici);
                 }
 
-                gelenKullanici.sifre = Sifrele.MD5Olustur(gelenKullanici.sifre);
-
-                if (gelenKullanici.id == 0)//Yeni ürün kaydı
+                if (gelenKullanici.id == 0) // Yeni Kullanıcı
                 {
+                    gelenKullanici.sifre = Sifrele.MD5Olustur(gelenKullanici.sifre);
+                    if (string.IsNullOrEmpty(gelenKullanici.Rol))
+                    {
+                        gelenKullanici.Rol = "Musteri";
+                    }
                     db.kullanici.Add(gelenKullanici);
-
+                    TempData["Ekle"] = "eklendi";
                 }
-                else  //Güncelleme 
+                else // Güncelleme
                 {
-                    var GuncellenecekVeri = db.kullanici.Find(gelenKullanici.id);
+                    var guncellenecekVeri = db.kullanici.Find(gelenKullanici.id);
 
-                    //güncelleme
-                    db.Entry(GuncellenecekVeri).CurrentValues.SetValues(gelenKullanici);
+                    // Şifre boşsa elleme, doluysa güncelle
+                    if (string.IsNullOrEmpty(gelenKullanici.sifre))
+                    {
+                        gelenKullanici.sifre = guncellenecekVeri.sifre;
+                    }
+                    else
+                    {
+                        gelenKullanici.sifre = Sifrele.MD5Olustur(gelenKullanici.sifre);
+                    }
+
+                    db.Entry(guncellenecekVeri).CurrentValues.SetValues(gelenKullanici);
                     TempData["Guncelle"] = "güncelleme";
                 }
 
                 db.SaveChanges();
-                return RedirectToAction("/index", "Kullanici");
+                return RedirectToAction("Index");
             }
         }
-
-     
 
         public ActionResult Sil(int id)
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            if (Session["Rol"]?.ToString() != "Yonetici") return RedirectToAction("Index", "SiparisYonetim");
+
+            using (MobilyaDbEntities db = new MobilyaDbEntities())
             {
-
                 var silincekVeri = db.kullanici.Find(id);
-
-                if (silincekVeri == null)
-                {
-                    return HttpNotFound();
-                }
+                if (silincekVeri == null) return HttpNotFound();
 
                 db.kullanici.Remove(silincekVeri);
                 db.SaveChanges();
-
-
                 TempData["Sil"] = "silindi";
-                return RedirectToAction("/index", "Kullanici");
+                return RedirectToAction("Index");
             }
-
         }
-
-
-
     }
 }

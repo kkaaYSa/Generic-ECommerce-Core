@@ -18,5 +18,7 @@ namespace KahveMVC.Models.EntityFramework
         public string ad { get; set; }
         public string sifre { get; set; }
         public string Rol { get; set; }
+        public string telefon { get; set; }
+        public string adres { get; set; }
     }
 }

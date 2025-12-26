@@ -2,95 +2,110 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
-using KahveMVC.Models;
-using System.Net.NetworkInformation;
-
+using KahveMVC.Models; // SepetUrun modelinin olduğu yer
 
 namespace KahveMVC.Controllers
 {
     public class SepetController : Controller
     {
-        // GET: Sepet
+        MobilyaDbEntities db = new MobilyaDbEntities();
+
+        // 1. SEPETİ GÖSTER
         public ActionResult Index()
         {
-            // Session'daki sepeti çekiyoruz
             var sepet = (List<SepetUrun>)Session["Sepet"];
-
-            // Eğer sepet henüz oluşmamışsa (boşsa), boş bir liste gönderelim ki hata vermesin
-            if (sepet == null)
-            {
-                sepet = new List<SepetUrun>();
-            }
-
-            // Listeyi View'a gönderiyoruz (Bunu yapmazsan ekran boş kalır!)
+            if (sepet == null) sepet = new List<SepetUrun>();
             return View(sepet);
         }
+
+        // 2. SEPETE EKLE (Stok Kontrollü)
         public ActionResult SepeteEkle(int id)
         {
-            kahve2019Entities db = new kahve2019Entities();
             var urun = db.urunler.Find(id);
             if (urun != null)
             {
-                if (Session["Sepet"] == null)
-                {
-                    Session["Sepet"] = new List<SepetUrun>();
-                }
+                if (Session["Sepet"] == null) Session["Sepet"] = new List<SepetUrun>();
                 List<SepetUrun> sepet = (List<SepetUrun>)Session["Sepet"];
+
                 var sepettekiUrun = sepet.FirstOrDefault(x => x.UrunId == id);
+
+                // --- STOK KONTROLÜ ---
+                int suankiAdet = (sepettekiUrun != null) ? sepettekiUrun.adet : 0;
+
+                if (urun.stok <= suankiAdet) // Stok yetersizse ekleme
+                {
+                    TempData["StokHata"] = "Stok yetersiz! Bu üründen daha fazla yok.";
+                    return RedirectToAction("Index", "Default"); // Ürünlere geri dön
+                }
+                // ---------------------
+
                 if (sepettekiUrun != null)
                 {
                     sepettekiUrun.adet++;
                 }
                 else
                 {
-                    sepet.Add(new SepetUrun { UrunId = urun.id, UrunAd = urun.baslik, Resim = urun.foto, adet = 1, fiyat = 50 });
-
+                    sepet.Add(new SepetUrun
+                    {
+                        UrunId = urun.id,
+                        UrunAd = urun.baslik,
+                        Resim = urun.foto,
+                        adet = 1,
+                        Fiyat = urun.Fiyat ?? 0
+                    });
                 }
-
-                Session["Sepet"] = sepet;
+                Session["Sepet"] = sepet; // Güncel sepeti kaydet
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index"); // Sepete git
         }
-        // --- SepetController.cs dosyasının içine eklenecekler ---
 
-        // 1. ADET ARTIRMA (+)
+        // 3. ADET ARTTIR (+ Butonu)
         public ActionResult AdetArttir(int id)
         {
             if (Session["Sepet"] != null)
             {
                 List<SepetUrun> sepet = (List<SepetUrun>)Session["Sepet"];
-                var urun = sepet.FirstOrDefault(x => x.UrunId == id);
-                if (urun != null)
+                var urunSepet = sepet.FirstOrDefault(x => x.UrunId == id);
+                var urunDb = db.urunler.Find(id); // Gerçek stoga bak
+
+                if (urunSepet != null && urunDb != null)
                 {
-                    urun.adet++; // Adeti 1 artır
+                    if (urunSepet.adet < urunDb.stok)
+                    {
+                        urunSepet.adet++;
+                    }
+                    else
+                    {
+                        // İstersen burada hata mesajı verdirebilirsin
+                    }
                 }
-                Session["Sepet"] = sepet; // Güncel hali kaydet
+                Session["Sepet"] = sepet;
             }
             return RedirectToAction("Index");
         }
 
-        // 2. ADET AZALTMA (-)
+        // 4. ADET AZALT (- Butonu)
         public ActionResult AdetAzalt(int id)
         {
             if (Session["Sepet"] != null)
             {
                 List<SepetUrun> sepet = (List<SepetUrun>)Session["Sepet"];
                 var urun = sepet.FirstOrDefault(x => x.UrunId == id);
+
                 if (urun != null)
                 {
                     if (urun.adet > 1)
-                        urun.adet--; // 1'den büyükse azalt
+                        urun.adet--;
                     else
-                        sepet.Remove(urun); // 1 ise ve eksiye bastıysa sil
+                        sepet.Remove(urun); // 1 taneyse sil
                 }
                 Session["Sepet"] = sepet;
             }
             return RedirectToAction("Index");
         }
 
-        // 3. SEPETTEN SİL (Çöp Kutusu)
+        // 5. SEPETTEN SİL
         public ActionResult SepettenSil(int id)
         {
             if (Session["Sepet"] != null)
@@ -99,37 +114,81 @@ namespace KahveMVC.Controllers
                 var silinecek = sepet.FirstOrDefault(x => x.UrunId == id);
                 if (silinecek != null)
                 {
-                    sepet.Remove(silinecek); // Listeden uçur
+                    sepet.Remove(silinecek);
                 }
                 Session["Sepet"] = sepet;
             }
             return RedirectToAction("Index");
         }
 
-        // 4. SEPETİ ONAYLA
         public ActionResult SepetiOnayla()
         {
-            // Sepet boşsa onaylatma
-            if (Session["Sepet"] == null)
+            return RedirectToAction("SiparisSecim");
+        }
+
+        
+        [HttpGet]
+        public ActionResult SiparisSecim()
+        {
+            // Eğer kullanıcı giriş yapmışsa bilgilerini getir
+            if (Session["KullaniciId"] != null)
             {
-                return RedirectToAction("Index");
+                int id = Convert.ToInt32(Session["KullaniciId"]);
+                var kullanici = db.kullanici.Find(id);
+
+                if (kullanici != null)
+                {
+                    ViewBag.Ad = kullanici.ad;       // Ad Soyad
+                    ViewBag.Tel = kullanici.telefon; // Telefon
+                    ViewBag.Adres = kullanici.adres; // Adres
+                }
             }
 
-            List<KahveMVC.Models.SepetUrun> sepet = (List<KahveMVC.Models.SepetUrun>)Session["Sepet"];
+            return View();
+        }
 
-            if (sepet.Count == 0)
+        [HttpPost]
+        public ActionResult SiparisiTamamla(string adSoyad, string telefon, string adres)
+        {
+            var sepet = Session["Sepet"] as List<SepetUrun>;
+            if (sepet == null) return RedirectToAction("Index");
+
+            // --- SİPARİŞİ KAYDET VE STOKTAN DÜŞ ---
+            siparis yeniSiparis = new siparis();
+            yeniSiparis.adSoyad = adSoyad;
+            yeniSiparis.telefon = telefon;
+            yeniSiparis.adres = adres;
+            yeniSiparis.tarih = DateTime.Now;
+            yeniSiparis.durum = "Bekleniyor";
+            yeniSiparis.toplamTutar = sepet.Sum(x => x.Fiyat * x.adet);
+
+            if (Session["KullaniciId"] != null)
+                yeniSiparis.kullaniciId = Convert.ToInt32(Session["KullaniciId"]);
+
+            db.siparis.Add(yeniSiparis);
+            db.SaveChanges(); // Önce siparişi oluştur ki ID oluşsun
+
+            foreach (var item in sepet)
             {
-                return RedirectToAction("Index"); // Sepet boşsa geri dön
-            }
+                // Detay Ekle
+                siparisdetay d = new siparisdetay();
+                d.siparisId = yeniSiparis.id;
+                d.urunId = item.UrunId;
+                d.adet = item.adet;
+                d.fiyat = item.Fiyat;
+                db.siparisdetay.Add(d);
 
-            // Kullanıcı zaten giriş yapmışsa (Müşteri ise) direkt Özet sayfasına git
-            if (Session["Kullanici"] != null)
-            {
-                return RedirectToAction("SiparisTamamla", "Sepet"); // Burayı sonra yapacağız
+                // ** STOKTAN DÜŞME İŞLEMİ **
+                var urunDb = db.urunler.Find(item.UrunId);
+                if (urunDb != null)
+                {
+                    urunDb.stok = urunDb.stok - item.adet;
+                }
             }
+            db.SaveChanges();
 
-            // Giriş yapmamışsa, o dediğin "Seçim Ekranına" git
-            return RedirectToAction("GirisSecimi", "Kullanici");
+            Session["Sepet"] = null; // Sepeti boşalt
+            return View("SiparisTamamlandi");
         }
     }
 }

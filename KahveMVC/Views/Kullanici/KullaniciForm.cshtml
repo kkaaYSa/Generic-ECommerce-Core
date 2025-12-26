@@ -37,8 +37,26 @@
                             <tr>
                                 <td>Şifre</td>
                                 <td>
-                                    @Html.PasswordFor(m => m.sifre, new { @class = "form-control" })
+                                    @Html.PasswordFor(m => m.sifre, new { @class = "form-control", placeholder = "Şifreyi değiştirmeyecekseniz boş bırakın" })
+
                                     @Html.ValidationMessageFor(m => m.sifre)
+
+                                    <small class="text-muted">
+                                        * Eğer kullanıcının şifresini değiştirmek istemiyorsanız bu alanı boş bırakın.
+                                    </small>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Yetki (Rol)</td>
+                                <td>
+                                    <select name="Rol" class="form-control">
+
+                                        <option value="Musteri" @(Model.Rol == "Musteri" || Model.Rol == null ? "selected" : "")>Müşteri (Standart)</option>
+
+                                        <option value="Admin" @(Model.Rol == "Admin" || Model.Rol == "Yonetici" ? "selected" : "")>Yönetici (Admin)</option>
+
+                                    </select>
                                 </td>
                             </tr>
 
@@ -47,7 +65,7 @@
                                 <td></td>
                                 <td>
                                     @Html.HiddenFor(m => m.id)
-                                  
+
                                     <input type="submit" value="Kaydet" class="btn btn-success" />
                                 </td>
                             </tr>

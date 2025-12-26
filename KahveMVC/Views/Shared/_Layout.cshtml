@@ -1,11 +1,36 @@
 ﻿
+@using KahveMVC.Models.EntityFramework
 @{
     Layout = null;
+
+    // --- OTURUM KURTARMA OPERASYONU ---
+    // Eğer sunucu kapanıp açıldıysa Session silinir ama Cookie (Beni Hatırla) kalır.
+    // Burada Cookie var mı diye bakıyoruz (Request.IsAuthenticated).
+    if (Session["KullaniciAdi"] == null && Request.IsAuthenticated)
+    {
+        // Kullanıcı adını çerezden al
+        string cookieAd = User.Identity.Name;
+
+        using (MobilyaDbEntities db = new MobilyaDbEntities())
+        {
+            var kullanici = db.kullanici.FirstOrDefault(x => x.ad == cookieAd);
+            if (kullanici != null)
+            {
+                // Session'ı tekrar doldur
+                Session["KullaniciAdi"] = kullanici.ad;
+                Session["Rol"] = kullanici.Rol;
+                Session["KullaniciId"] = kullanici.id;
+            }
+        }
+    }
 }
 
 <!DOCTYPE html>
 <html lang="tr">
 <head>
+    ```
+
+
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
@@ -19,69 +44,158 @@
         <link href="https://fonts.googleapis.com/css?family=Lora:400,400i,700,700i" rel="stylesheet">*@
     <!-- Custom styles for this template -->
 
-    <link href="~/Content/css/business-casual.css" rel="stylesheet" />
-</head>
+    <link href="~/Content/css/business-casual.css?v=99" rel="stylesheet" />
+    <style>
+         /* SADECE ANA BUTON RENGİNİ DEĞİŞTİRİYORUZ (Koyu Lacivert) */
+         .btn-primary {
+             background-color: #2c3e50 !important;
+             border-color: #2c3e50 !important;
+             color: #fff !important;
+         }
+
+             .btn-primary:hover {
+                 background-color: #1a252f !important;
+                 border-color: #1a252f !important;
+             }
+
+         /* btn-success (Yeşil) ve btn-danger (Kırmızı) kodlarını buradan SİLDİK.
+        Böylece onlar orijinal Bootstrap rengine (Yeşil/Kırmızı) dönecek. */
+    </style>
+
+</head> ```
+
 <body>
     <h1 class="site-heading text-center text-white d-none d-lg-block">
-        <span class="site-heading-upper text-primary mb-3">A Free Bootstrap 4 Business Theme</span>
-        <span class="site-heading-lower">Business Casual</span>
+        <span class="site-heading-upper text-primary mb-3">Evinizin Yeni Tarzı</span>
+        <span class="site-heading-lower">MOBİLYA DÜNYASI</span>
     </h1>
     <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark py-lg-4" id="mainNav">
         <div class="container">
-            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Start Bootstrap</a>
+            <a class="navbar-brand text-uppercase text-expanded font-weight-bold d-lg-none" href="#">Mobilya Dünyası</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse" id="navbarResponsive">
-                @if (Session["Rol"] != null && (Session["Rol"].ToString() == "Yonetici" || Session["Rol"].ToString() == "Admin"))
-                {
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" style="color: red !important; font-weight:bold;" href="/Anasayfa/Index">Yönetim Paneli</a>
-                    </li>
-                }
+            <ul class="navbar-nav mx-auto">
+                <li class="nav-item px-lg-4 @(ViewBag.Title=="Ana Sayfa"?"active":"")">
+                    <a class="nav-link text-uppercase text-expanded" href="/">Ana Sayfa</a>
+                </li>
 
-                @if (Session["KullaniciAdi"] == null)
-                {
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="/Login">Giriş Yap</a>
-                    </li>
-                }
-                else
-                {
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="#">@Session["KullaniciAdi"]</a>
-                    </li>
-                    <li class="nav-item px-lg-4">
-                        <a class="nav-link text-uppercase text-expanded" href="/Login/Logout">Çıkış</a>
-                    </li>
-                }
-                <ul class="navbar-nav mx-auto">
-                    <li class="nav-item px-lg-4 @(ViewBag.Title=="Ana Sayfa"?"active":"")">
-                        <a class="nav-link text-uppercase text-expanded" href="/">Ana Sayfa</a>
-                    </li>
-                    <li class="nav-item px-lg-4 @(ViewBag.Title=="Hakkımızda"?"active":"")">
-                        <a class="nav-link text-uppercase text-expanded" href="/hakkimizda">Hakkımızda</a>
-                    </li>
-                    @*<li class="nav-item px-lg-4 @(Request.Url.AbsolutePath=="/urunler"?"active":"")">*@
-                    <li class="nav-item px-lg-4 @(ViewBag.Title=="Ürünler"?"active":"")">
-                        <a class="nav-link text-uppercase text-expanded" href="/Murunler">Ürünler</a>
-                    </li>
-                    <li class="nav-item px-lg-4 @(ViewBag.Title=="Magaza"?"active":"")">
-                        <a class="nav-link text-uppercase text-expanded" href="/magaza">Magaza</a>
-                    </li>
-                    <li class="nav-item px-lg-4 @(ViewBag.Title=="İletişim"?"active":"")">
-                        <a class="nav-link text-uppercase text-expanded" href="/iletisim">İletişim</a>
-                    </li>
-                    
-                </ul>
-            </div>
+                <li class="nav-item px-lg-4 @(ViewBag.Title=="Hakkımızda"?"active":"")">
+                    <a class="nav-link text-uppercase text-expanded" href="/hakkimizda">Hakkımızda</a>
+                </li>
+
+                <li class="nav-item px-lg-4 @(ViewBag.Title=="Ürünler"?"active":"")">
+                    <a class="nav-link text-uppercase text-expanded" href="/Murunler">Ürünler</a>
+                </li>
+
+                <li class="nav-item px-lg-4 @(ViewBag.Title=="Magaza"?"active":"")">
+                    <a class="nav-link text-uppercase text-expanded" href="/magaza">Mağaza</a>
+                </li>
+
+                <li class="nav-item px-lg-4 @(ViewBag.Title=="İletişim"?"active":"")">
+                    <a class="nav-link text-uppercase text-expanded" href="/iletisim">İletişim</a>
+                </li>
+
+                <li class="nav-item px-lg-4 @(ViewBag.Title=="Sepet"?"active":"")">
+                    <a class="nav-link text-uppercase text-expanded" href="/Sepet/Index">
+                        🛒 Sepetim
+                        @if (Session["Sepet"] != null)
+                        {
+                            var sepetListesi = (List<KahveMVC.Models.SepetUrun>)Session["Sepet"];
+                            if (sepetListesi.Count > 0)
+                            {
+                                <span class="badge badge-danger" style="background-color: red; color: white; border-radius: 50%; padding: 3px 7px; font-size: 11px; vertical-align: top;">
+                                    @sepetListesi.Count
+                                </span>
+                            }
+                        }
+                    </a>
+                </li>
+
+                <li class="nav-item dropdown px-lg-4">
+                    <a class="nav-link text-uppercase text-expanded dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        @if (Session["KullaniciAdi"] != null)
+                        {
+                            <i class="fas fa-user-circle" style="font-size: 1.1rem; color: #e6a756;"></i>
+                            <span style="text-transform: none; font-size: 0.9rem; margin-left: 5px;">@Session["KullaniciAdi"]</span>
+                        }
+                        else
+                        {
+                            <i class="fas fa-user" style="font-size: 1.1rem;"></i>
+                            <span style="text-transform: none; font-size: 0.9rem; margin-left: 5px;">Giriş</span>
+                        }
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown" style="min-width: 280px; padding: 15px;">
+
+                        @if (Session["KullaniciAdi"] != null)
+                        {
+                            // --- GİRİŞ YAPILMIŞSA ---
+
+                            if (Session["Rol"] != null && (Session["Rol"].ToString() == "Yonetici" || Session["Rol"].ToString() == "Admin"))
+                            {
+                                <a class="dropdown-item" href="/Anasayfa/Index" style="color:red; font-weight:bold;">
+                                    <i class="fas fa-tachometer-alt"></i> Yönetim Paneli
+                                </a>
+                                <div class="dropdown-divider"></div>
+                            }
+
+                            <a class="dropdown-item" href="/Profil/Siparislerim">
+                                <i class="fas fa-box-open"></i> Siparişlerim
+                            </a>
+                            <a class="dropdown-item" href="/Profil/Index">
+                                <i class="fas fa-cog"></i> Ayarlar / Profil
+                            </a>
+
+                            <div class="dropdown-divider"></div>
+
+                            <a class="dropdown-item text-danger" href="/Login/Logout">
+                                <i class="fas fa-sign-out-alt"></i> Çıkış Yap
+                            </a>
+                        }
+                        else
+                        {
+                            // --- GİRİŞ YAPILMAMIŞSA (FORM) ---
+
+                            <form action="/Login/Giris" method="post" onclick="event.stopPropagation()">
+                                @Html.AntiForgeryToken()
+
+                                <input type="hidden" name="ReturnUrl" value="@Request.RawUrl" />
+
+                                <div class="form-group mb-2">
+                                    <label style="font-size: 0.8rem; font-weight: bold;">Kullanıcı Adı</label>
+                                    <input type="text" name="ad" class="form-control form-control-sm" placeholder="Kullanıcı Adı" required>
+                                </div>
+
+                                <div class="form-group mb-2">
+                                    <label style="font-size: 0.8rem; font-weight: bold;">Parola</label>
+                                    <input type="password" name="sifre" class="form-control form-control-sm" placeholder="Parola" required>
+                                </div>
+
+                                <div class="form-group form-check mb-3">
+                                    <input type="checkbox" class="form-check-input" id="beniHatirlaCheck" name="BeniHatirla" value="true">
+                                    <label class="form-check-label small" for="beniHatirlaCheck" style="padding-top: 2px;">Beni Hatırla</label>
+                                </div>
+
+
+                                <button type="submit" class="btn btn-warning btn-block btn-sm font-weight-bold">GİRİŞ YAP</button>
+                            </form>
+
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item small text-center" href="/Login/KayitOl" style="color: #e6a756; font-weight: bold;">
+                                Hesabın yok mu? Kayıt Ol
+                            </a>
+                        }
+                    </div>
+                </li>
+            </ul>
         </div>
     </nav>
     @RenderBody()
     <footer class="footer text-faded text-center py-5">
         <div class="container">
-            <p class="m-0 small">Copyright &copy; Your Website 2018</p>
+            <p class="m-0 small">Tüm Hakları Saklıdır &copy; Mobilya Dünyası 2025</p>
         </div>
     </footer>
     <!-- Bootstrap core JavaScript -->
@@ -89,6 +203,15 @@
     <script src="~/Scripts/jquery.min.js"></script>
     <script src="~/Scripts/bootstrap.bundle.min.js"></script>
     @RenderSection("scripts", false)
+
+    @if (TempData["GirisHata"] != null)
+    {
+        <script>
+        $(document).ready(function() {
+            alert('@TempData["GirisHata"]');
+        });
+        </script>
+    }
 
 </body>
 </html>

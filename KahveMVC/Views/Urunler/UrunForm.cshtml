@@ -61,9 +61,24 @@
                             <tr>
                                 <td>İçerik</td>
                                 <td>
-                                  
+
                                     @Html.TextAreaFor(m => m.icerik, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.icerik)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Fiyat (TL)</td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.Fiyat, new { @class = "form-control", @placeholder = "Örn: 1500" })
+                                    @Html.ValidationMessageFor(m => m.Fiyat)
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <td>Stok Adedi</td>
+                                <td>
+                                    @Html.TextBoxFor(m => m.stok, new { @class = "form-control", @type = "number", @placeholder = "Örn: 50" })
+                                    @Html.ValidationMessageFor(m => m.stok)
                                 </td>
                             </tr>
                             <tr>
@@ -101,7 +116,7 @@
     <footer class="sticky-footer">
         <div class="container my-auto">
             <div class="copyright text-center my-auto">
-                <span>Copyright © Your Website 2019</span>
+                <span>Tüm hakları saklıdır © Mobilya Dünyam 2025</span>
             </div>
         </div>
     </footer>

@@ -1,0 +1,84 @@
+﻿@model KahveMVC.Models.EntityFramework.siparis
+@{
+    ViewBag.Title = "Sipariş Detayı";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div class="container-fluid">
+
+    <div class="d-flex align-items-center justify-content-between mt-4 mb-3">
+        <h2>Sipariş Detayı (#@Model.id)</h2>
+        <a href="/SiparisYonetim/Index" class="btn btn-secondary"><i class="fas fa-arrow-left"></i> Listeye Dön</a>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white">
+                    <i class="fas fa-user"></i> Müşteri Bilgileri
+                </div>
+                <div class="card-body">
+                    <p><strong>Ad Soyad:</strong> @Model.adSoyad</p>
+                    <p><strong>Telefon:</strong> @Model.telefon</p>
+                    <p><strong>Adres:</strong> @Model.adres</p>
+                    <p><strong>Tarih:</strong> @Model.tarih</p>
+                    <hr />
+
+                    <form action="/SiparisYonetim/DurumDegistir" method="post">
+                        <input type="hidden" name="id" value="@Model.id" />
+                        <label><strong>Sipariş Durumu:</strong></label>
+                        <select name="durum" class="form-control mb-2">
+                            <option value="Bekleniyor" @(Model.durum == "Bekleniyor" ? "selected" : "")>Bekleniyor</option>
+                            <option value="Hazırlanıyor" @(Model.durum == "Hazırlanıyor" ? "selected" : "")>Hazırlanıyor</option>
+                            <option value="Kargolandı" @(Model.durum == "Kargolandı" ? "selected" : "")>Kargolandı</option>
+                            <option value="Tamamlandı" @(Model.durum == "Tamamlandı" ? "selected" : "")>Tamamlandı</option>
+                            <option value="İptal" @(Model.durum == "İptal" ? "selected" : "")>İptal Edildi</option>
+                        </select>
+                        <button type="submit" class="btn btn-success btn-block">Durumu Güncelle</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <i class="fas fa-box-open"></i> Satın Alınan Ürünler
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-striped mb-0">
+                        <thead>
+                            <tr>
+                                <th>Ürün</th>
+                                <th>Fiyat</th>
+                                <th>Adet</th>
+                                <th>Toplam</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var detay in Model.siparisdetay)
+                            {
+                                <tr>
+                                    <td>
+                                        <img src="~/Content/img/@detay.urunler.foto" width="50" style="border-radius:5px; margin-right:10px;" />
+                                        @detay.urunler.baslik
+                                    </td>
+                                    <td>@detay.fiyat ₺</td>
+                                    <td>@detay.adet</td>
+                                    <td>@(detay.fiyat * detay.adet) ₺</td>
+                                </tr>
+                            }
+                        </tbody>
+                        <tfoot>
+                            <tr class="bg-light">
+                                <td colspan="3" class="text-right"><strong>GENEL TOPLAM:</strong></td>
+                                <td class="text-danger font-weight-bold" style="font-size:1.2rem;">@Model.toplamTutar ₺</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

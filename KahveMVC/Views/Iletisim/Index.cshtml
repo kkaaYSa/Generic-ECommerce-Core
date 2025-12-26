@@ -1,155 +1,132 @@
 ﻿@model List<KahveMVC.Models.EntityFramework.iletisimformu>
 @{
-    ViewBag.Title = "İletişim";
+    ViewBag.Title = "İletişim Kutusu";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
 <div id="content-wrapper">
     <div class="container-fluid">
-        <!-- Breadcrumbs-->
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="#">Dashboard</a>
+                <a href="/Admin/Index">Panel</a>
             </li>
-            <li class="breadcrumb-item active">İletişim</li>
+            <li class="breadcrumb-item active">Müşteri Mesajları</li>
         </ol>
-        <!-- DataTables Example -->
+
         <div class="card mb-3">
             <div class="card-header">
-                <i class="fas fa-table"></i>
-                İletişim formu listesi
+                <i class="fas fa-envelope"></i> Gelen Mesajlar Listesi
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                    <table class="table table-bordered table-striped" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
                                 <th>Ad Soyad</th>
-                                <th>Mail</th>
+                                <th>E-Posta</th>
                                 <th>Tarih</th>
-                                <th>Mesaj</th>
+                                <th>Mesaj İçeriği</th>
                                 <th>Cinsiyet</th>
-                                <th>izin</th>
-                                <th>Sil</th>
+                                <th>İzin</th>
+                                <th>İşlem</th>
                             </tr>
                         </thead>
-
                         <tbody>
                             @foreach (var veri in Model)
                             {
                                 <tr>
                                     <td>@veri.adSoyad</td>
-                                    <td>@veri.eposta</td>
-                                    <td>@veri.tarih</td>
+                                    <td><a href="mailto:@veri.eposta">@veri.eposta</a></td>
                                     <td>
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModalCenter_@veri.id">
-                                           Mesajı Oku
+                                        @(veri.tarih.HasValue ? veri.tarih.Value.ToString("dd.MM.yyyy HH:mm") : "-")
+                                    </td>
+                                    <td>
+                                        <button type="button" class="btn btn-info btn-sm btn-block" data-toggle="modal" data-target="#modalOku_@veri.id">
+                                            <i class="fas fa-eye"></i> Oku
                                         </button>
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="exampleModalCenter_@veri.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal fade" id="modalOku_@veri.id" tabindex="-1" role="dialog" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle">Mesaj</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <div class="modal-header bg-info text-white">
+                                                        <h5 class="modal-title">Gönderen: @veri.adSoyad</h5>
+                                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                      @veri.mesaj
+                                                        <p><strong>Mesaj:</strong></p>
+                                                        <p>@veri.mesaj</p>
+                                                        <hr />
+                                                        <small class="text-muted">Tarih: @veri.tarih</small>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Kapat</button>
-                                                        @Html.ActionLink("Sil", "Sil", new { veri.id }, new { @class = "btn btn-danger" })
+                                                        <a href="mailto:@veri.eposta" class="btn btn-primary">Cevap Yaz</a>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </td>
-                                    <td>@(veri.cinsiyet == true ? "Kadın" : "Erkek")</td>
-                                    <td>@(veri.izin == true ? "Onaylı" : "Red edildi")</td>
+
                                     <td>
-                                        <!-- Button trigger modal -->
-                                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#Sil_@veri.id">
-                                           Sil
+                                        @if (veri.cinsiyet == true)
+                                        {<span class="badge badge-danger"><i class="fas fa-female"></i> Kadın</span> }
+                                        else
+                                        { <span class="badge badge-primary"><i class="fas fa-male"></i> Erkek</span>}
+                                    </td>
+                                    <td>
+                                        @if (veri.izin == true)
+                                        {<span class="text-success"><i class="fas fa-check"></i> Onaylı</span> }
+                                        else
+                                        { <span class="text-danger"><i class="fas fa-times"></i> Red</span>}
+                                    </td>
+
+                                    <td>
+                                        <button type="button" class="btn btn-danger btn-sm" data-toggle="modal" data-target="#modalSil_@veri.id">
+                                            <i class="fas fa-trash"></i>
                                         </button>
 
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="Sil_@veri.id" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                                        <div class="modal fade" id="modalSil_@veri.id" tabindex="-1" role="dialog" aria-hidden="true">
                                             <div class="modal-dialog modal-dialog-centered" role="document">
                                                 <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLongTitle">Kayıt Sil</h5>
-                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <div class="modal-header bg-danger text-white">
+                                                        <h5 class="modal-title">Silme Onayı</h5>
+                                                        <button type="button" class="close text-white" data-dismiss="modal" aria-label="Close">
                                                             <span aria-hidden="true">&times;</span>
                                                         </button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <h4>Kaydı silmek istiyor musunuz?</h4>
+                                                        Bu mesajı kalıcı olarak silmek istediğinize emin misiniz?
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary mx-4" data-dismiss="modal">Vazgeç</button>
-                                                        @Html.ActionLink("Sil", "Sil", new { veri.id }, new { @class = "btn btn-danger mx-4" })
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Vazgeç</button>
+                                                        @Html.ActionLink("Evet, Sil", "Sil", new { id = veri.id }, new { @class = "btn btn-danger" })
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-
-
-                                       
                                     </td>
-
                                 </tr>
                             }
-
                         </tbody>
                     </table>
                 </div>
             </div>
-            <div class="card-footer small text-muted">Updated yesterday at 11:59 PM</div>
+            <div class="card-footer small text-muted">Son Güncelleme: @DateTime.Now.ToString("dd.MM.yyyy HH:mm")</div>
         </div>
-
     </div>
-    <!-- /.container-fluid -->
-    <!-- Sticky Footer -->
-    <footer class="sticky-footer">
-        <div class="container my-auto">
-            <div class="copyright text-center my-auto">
-                <span>Copyright © Your Website 2019</span>
-            </div>
-        </div>
-    </footer>
 </div>
 
-@section scripts
-    {
-
+@section scripts {
     <script>
-        $('#dataTable').DataTable({
-            language: {
-                info: "_TOTAL_ kayıttan _START_ - _END_ kayıt gösteriliyor.",
-                infoEmpty: "Gösterilecek hiç kayıt yok.",
-                loadingRecords: "Kayıtlar yükleniyor.",
-                zeroRecords: "Tablo boş",
-                search: "Arama:",
-                sLengthMenu: "Sayfada _MENU_ kayıt göster",
-                infoFiltered: "(toplam _MAX_ kayıttan filtrelenenler)",
-                buttons: {
-                    copyTitle: "Panoya kopyalandı.",
-                    copySuccess: "Panoya %d satır kopyalandı",
-                    copy: "Kopyala",
-                    print: "Yazdır",
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/Turkish.json"
                 },
-
-                paginate: {
-                    first: "İlk",
-                    previous: "Önceki",
-                    next: "Sonraki",
-                    last: "Son"
-                },
-            }
+                "order": [[2, "desc"]] // Tarihe göre (2. sütun) tersten sırala
+            });
         });
     </script>
 }

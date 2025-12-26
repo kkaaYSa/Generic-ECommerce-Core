@@ -1,0 +1,65 @@
+﻿@model KahveMVC.Models.EntityFramework.kullanici
+@{
+    ViewBag.Title = "Kayıt Ol";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner text-center rounded">
+
+                    <h2 class="section-heading mb-4">
+                        <span class="section-heading-upper">Hemen Aramıza Katılın</span>
+                        <span class="section-heading-lower">Üyelik Formu</span>
+                    </h2>
+
+                    <p class="mb-4">Siparişlerinizi hızlıca vermek için bilgilerinizi eksiksiz doldurun.</p>
+
+                    @if (ViewBag.Hata != null)
+                    {
+                        <div class="alert alert-danger">
+                            @ViewBag.Hata
+                        </div>
+                    }
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+
+                            <form action="/Login/KayitOl" method="post">
+                                @Html.AntiForgeryToken()
+
+                                <div class="form-group text-left">
+                                    <label style="font-weight:bold;">Kullanıcı Adı</label>
+                                    <input type="text" name="ad" class="form-control" placeholder="Kullanıcı Adı Belirleyin" required />
+                                </div>
+
+                                <div class="form-group text-left">
+                                    <label style="font-weight:bold;">Şifre</label>
+                                    <input type="password" name="sifre" class="form-control" placeholder="Güçlü Bir Şifre Girin" required />
+                                </div>
+
+                                <div class="form-group text-left">
+                                    <label style="font-weight:bold;">Telefon</label>
+                                    <input type="text" name="telefon" class="form-control" placeholder="05XX XXX XX XX" required />
+                                </div>
+
+                                <div class="form-group text-left">
+                                    <label style="font-weight:bold;">Adres</label>
+                                    <textarea name="adres" class="form-control" rows="3" placeholder="Siparişleriniz için açık adres giriniz..." required></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-warning btn-block font-weight-bold py-3 mt-4" style="color:#2f170f;">
+                                    KAYIT OL VE GİRİŞ YAP
+                                </button>
+                            </form>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

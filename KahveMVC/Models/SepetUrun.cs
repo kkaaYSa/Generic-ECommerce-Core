@@ -12,13 +12,13 @@ namespace KahveMVC.Models
         public string UrunAd { get; set; }
 
         public string Resim { get; set; }
-        public double fiyat { get; set; }
+        public int Fiyat { get; set; }
         public int adet { get; set; }
         public double ToplamTutar 
         {
             get
             {
-                return adet * fiyat;
+                return adet * Fiyat;
             }
         }
     }

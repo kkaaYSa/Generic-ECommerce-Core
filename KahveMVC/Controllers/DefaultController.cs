@@ -10,7 +10,7 @@ namespace KahveMVC.Controllers
 {
     public class DefaultController : Controller
     {
-        kahve2019Entities db = new kahve2019Entities();
+        MobilyaDbEntities db = new MobilyaDbEntities ();
         // GET: Default
         public ActionResult Index()
         {
@@ -72,7 +72,7 @@ namespace KahveMVC.Controllers
 
         [HttpGet]
         [Route("iletisim")]
-        public ActionResult Iletisim()
+        public ActionResult iletisim()
         {
             return View();
         }

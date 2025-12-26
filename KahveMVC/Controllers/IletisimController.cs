@@ -7,28 +7,27 @@ using KahveMVC.Models.EntityFramework;
 
 namespace KahveMVC.Controllers
 {
-    [Authorize]
+    [Authorize] // Sadece giriş yapan adminler görebilir
     public class IletisimController : Controller
     {
-        // GET: Iletisim
+        // GET: Iletisim Listesi
         public ActionResult Index()
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            using (MobilyaDbEntities db = new MobilyaDbEntities())
             {
-                var model = db.iletisimformu.ToList();
+                // Mesajları tarihe göre tersten sırala (En yeni en üstte)
+                var model = db.iletisimformu.OrderByDescending(x => x.tarih).ToList();
                 return View(model);
             }
-
         }
 
         public ActionResult Sil(int id)
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            using (MobilyaDbEntities db = new MobilyaDbEntities())
             {
-
                 var silincekVeri = db.iletisimformu.Find(id);
 
-                if(silincekVeri==null)
+                if (silincekVeri == null)
                 {
                     return HttpNotFound();
                 }
@@ -36,11 +35,8 @@ namespace KahveMVC.Controllers
                 db.iletisimformu.Remove(silincekVeri);
                 db.SaveChanges();
 
-
-
-                return RedirectToAction("/index","Iletisim");
+                return RedirectToAction("/Index","Iletisim");
             }
-
         }
     }
 }

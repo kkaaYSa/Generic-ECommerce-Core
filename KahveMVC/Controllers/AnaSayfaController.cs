@@ -14,7 +14,7 @@ namespace KahveMVC.Controllers
         // GET: Hakimizda
         public ActionResult Index()
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            using (MobilyaDbEntities db = new MobilyaDbEntities ())
             {
                 var model = db.anasayfa.First();
                 return View(model);
@@ -23,7 +23,7 @@ namespace KahveMVC.Controllers
         }
         public ActionResult AnasayfaGuncelle()
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            using (MobilyaDbEntities db = new MobilyaDbEntities ())
             {
                 var model = db.anasayfa.First();
                 return View(model);
@@ -36,7 +36,7 @@ namespace KahveMVC.Controllers
         public ActionResult Kaydet(anasayfa GelenVeri)
         {
 
-            using (kahve2019Entities db = new kahve2019Entities())
+            using (MobilyaDbEntities db = new MobilyaDbEntities ())
             {
                 var GuncellenecekVeri = db.anasayfa.First();
                 if (!ModelState.IsValid)

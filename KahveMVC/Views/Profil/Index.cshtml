@@ -1,0 +1,71 @@
+﻿@model KahveMVC.Models.EntityFramework.kullanici
+@{
+    ViewBag.Title = "Profil Ayarları";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner text-center rounded">
+
+                    <h2 class="section-heading mb-4">
+                        <span class="section-heading-upper">Hesap Bilgileri</span>
+                        <span class="section-heading-lower">Profilimi Düzenle</span>
+                    </h2>
+
+                    @if (TempData["Mesaj"] != null)
+                    {
+                        <div class="alert alert-success">
+                            <i class="fas fa-check"></i> @TempData["Mesaj"]
+                        </div>
+                    }
+
+                    <div class="row justify-content-center">
+                        <div class="col-md-8 text-left">
+
+                            <form action="/Profil/Guncelle" method="post">
+
+                                <input type="hidden" name="id" value="@Model.id" />
+
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Kullanıcı Adı</label>
+                                    <input type="text" name="ad" class="form-control" value="@Model.ad" required />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Telefon</label>
+                                    <input type="text" name="telefon" class="form-control" value="@Model.telefon" placeholder="05..." />
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="font-weight-bold">Adres</label>
+                                    <textarea name="adres" class="form-control" rows="4">@Model.adres</textarea>
+                                </div>
+
+                                <hr />
+
+                                <div class="form-group">
+                                    <label class="font-weight-bold text-danger">Yeni Şifre (Değiştirmek İstemiyorsanız Boş Bırakın)</label>
+                                    <input type="password" name="sifre" class="form-control" placeholder="******" />
+                                    <small class="text-muted">Şifrenizi değiştirmek istemiyorsanız buraya dokunmayın.</small>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary font-weight-bold" style="color:#2f170f;">
+                                    BİLGİLERİMİ GÜNCELLE
+                                </button>
+
+                                <a href="/Profil/Siparislerim" class="btn btn-secondary btn-block mt-2">
+                                    <i class="fas fa-history"></i> Sipariş Geçmişim
+                                </a>
+
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

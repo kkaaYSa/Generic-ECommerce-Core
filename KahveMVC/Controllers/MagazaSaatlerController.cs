@@ -12,7 +12,7 @@ namespace KahveMVC.Controllers
     {
         public ActionResult Index()
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            using (MobilyaDbEntities db = new MobilyaDbEntities ())
             {
                 var model = db.magazasaat.ToList();
                 return View(model);
@@ -23,7 +23,7 @@ namespace KahveMVC.Controllers
 
         public ActionResult MagazaSaatGuncelle(int id)
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            using (MobilyaDbEntities db = new MobilyaDbEntities ())
             {
 
                 var model = db.magazasaat.Find(id);
@@ -40,7 +40,7 @@ namespace KahveMVC.Controllers
 
         public ActionResult Kaydet(magazasaat gelenVeri)
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            using (MobilyaDbEntities db = new MobilyaDbEntities ())
             {
                 if (!ModelState.IsValid) //formun doğru dolduruludu mu?
                 {

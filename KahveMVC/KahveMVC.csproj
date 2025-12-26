@@ -1738,15 +1738,15 @@
     <Content Include="Content\vendor\bootstrap\css\bootstrap.css" />
     <Content Include="Content\vendor\bootstrap\css\bootstrap.min.css" />
     <Content Include="Content\vendor\bootstrap\js\bootstrap.bundle.js" />
-    <Content Include="Models\EntityFramework\KahveModel2019.Context.tt">
+    <Content Include="Models\EntityFramework\mobilyamodel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>KahveModel2019.edmx</DependentUpon>
-      <LastGenOutput>KahveModel2019.Context.cs</LastGenOutput>
+      <DependentUpon>mobilyamodel.edmx</DependentUpon>
+      <LastGenOutput>mobilyamodel.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Models\EntityFramework\KahveModel2019.tt">
+    <Content Include="Models\EntityFramework\mobilyamodel.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>KahveModel2019.edmx</DependentUpon>
-      <LastGenOutput>KahveModel2019.cs</LastGenOutput>
+      <DependentUpon>mobilyamodel.edmx</DependentUpon>
+      <LastGenOutput>mobilyamodel.cs</LastGenOutput>
     </Content>
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Content\vendor\bootstrap\js\bootstrap.js" />
@@ -1902,12 +1902,12 @@
     <Content Include="Content\ckeditor5-build-classic\ckeditor.js.map" />
     <Content Include="Content\ckeditor5-build-classic\LICENSE.md" />
     <Content Include="Content\ckeditor5-build-classic\README.md" />
-    <EntityDeploy Include="Models\EntityFramework\KahveModel2019.edmx">
+    <EntityDeploy Include="Models\EntityFramework\mobilyamodel.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>KahveModel2019.Designer.cs</LastGenOutput>
+      <LastGenOutput>mobilyamodel.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <Content Include="Models\EntityFramework\KahveModel2019.edmx.diagram">
-      <DependentUpon>KahveModel2019.edmx</DependentUpon>
+    <Content Include="Models\EntityFramework\mobilyamodel.edmx.diagram">
+      <DependentUpon>mobilyamodel.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
@@ -1933,52 +1933,61 @@
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\MagazaController.cs" />
     <Compile Include="Controllers\MagazaSaatlerController.cs" />
+    <Compile Include="Controllers\ProfilController.cs" />
     <Compile Include="Controllers\SepetController.cs" />
     <Compile Include="Controllers\Sifrele.cs" />
+    <Compile Include="Controllers\SiparisYonetimController.cs" />
     <Compile Include="Controllers\Turkce.cs" />
     <Compile Include="Controllers\UrunlerController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\anasayfa.cs">
-      <DependentUpon>KahveModel2019.tt</DependentUpon>
+      <DependentUpon>mobilyamodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\hakkimizda.cs">
-      <DependentUpon>KahveModel2019.tt</DependentUpon>
+      <DependentUpon>mobilyamodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\iletisimformu.cs">
-      <DependentUpon>KahveModel2019.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EntityFramework\KahveModel2019.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KahveModel2019.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EntityFramework\KahveModel2019.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KahveModel2019.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\EntityFramework\KahveModel2019.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>KahveModel2019.edmx</DependentUpon>
+      <DependentUpon>mobilyamodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\kullanici.cs">
-      <DependentUpon>KahveModel2019.tt</DependentUpon>
+      <DependentUpon>mobilyamodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\magaza.cs">
-      <DependentUpon>KahveModel2019.tt</DependentUpon>
+      <DependentUpon>mobilyamodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\magazasaat.cs">
-      <DependentUpon>KahveModel2019.tt</DependentUpon>
+      <DependentUpon>mobilyamodel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityFramework\mobilyamodel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mobilyamodel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityFramework\mobilyamodel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mobilyamodel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityFramework\mobilyamodel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>mobilyamodel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityFramework\siparis.cs">
+      <DependentUpon>mobilyamodel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\EntityFramework\siparisdetay.cs">
+      <DependentUpon>mobilyamodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\EntityFramework\urunler.cs">
-      <DependentUpon>KahveModel2019.tt</DependentUpon>
+      <DependentUpon>mobilyamodel.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\PartialClasses.cs" />
     <Compile Include="Models\SepetUrun.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Turkce.cs" />
     <Compile Include="ViewModels\MagazaViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2002,7 +2011,6 @@
     <Content Include="Views\Default\Magaza.cshtml" />
     <Content Include="Views\Default\Iletisim.cshtml" />
     <Content Include="Views\Shared\_LayoutAdmin.cshtml" />
-    <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Iletisim\Index.cshtml" />
     <Content Include="Views\Hakkimizda\Index.cshtml" />
     <Content Include="Views\Hakkimizda\HakkimizdaGuncelle.cshtml" />
@@ -2019,6 +2027,13 @@
     <Content Include="Views\Kullanici\Index.cshtml" />
     <Content Include="Views\Kullanici\KullaniciForm.cshtml" />
     <Content Include="Views\Sepet\Index.cshtml" />
+    <Content Include="Views\Sepet\SiparisSecim.cshtml" />
+    <Content Include="Views\Sepet\SiparisTamamlandi.cshtml" />
+    <Content Include="Views\Login\KayitOl.cshtml" />
+    <Content Include="Views\SiparisYonetim\Index.cshtml" />
+    <Content Include="Views\SiparisYonetim\Detay.cshtml" />
+    <Content Include="Views\Profil\Siparislerim.cshtml" />
+    <Content Include="Views\Profil\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

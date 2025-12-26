@@ -1,16 +1,16 @@
 /*!
  * Start Bootstrap - Business Casual v5.0.2 (https://startbootstrap.com/template-overviews/business-casual)
- * Copyright 2013-2018 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-business-casual/blob/master/LICENSE)
+ * Modified for: Mobilya Dünyasý
  */
 
 body {
-  font-family: 'Lora';
-  background: -webkit-gradient(linear, left top, left bottom, from(rgba(47, 23, 15, 0.65))), url("../img/bg.jpg");
-  background: linear-gradient(rgba(47, 23, 15, 0.65)), url("../img/bg.jpg");
-  background-attachment: fixed;
-  background-position: center;
-  background-size: cover;
+    font-family: 'Lora';
+    /* Arka plan resmini burada güncelledik */
+    background: -webkit-gradient(linear, left top, left bottom, from(rgba(47, 23, 15, 0.65))), url("../img/bg.png");
+    background: linear-gradient(rgba(47, 23, 15, 0.65)), url("../img/bg.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
 }
 
 h1,
@@ -19,247 +19,327 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Raleway';
+    font-family: 'Raleway';
 }
 
 p {
-  line-height: 1.75;
+    line-height: 1.75;
 }
 
 .text-faded {
-  color: rgba(255, 255, 255, 0.3);
+    color: rgba(255, 255, 255, 0.3);
 }
 
 .site-heading {
-  margin-top: 5rem;
-  margin-bottom: 5rem;
-  text-transform: uppercase;
-  line-height: 1;
-  font-family: 'Raleway';
+    margin-top: 5rem;
+    margin-bottom: 5rem;
+    text-transform: uppercase;
+    line-height: 1;
+    font-family: 'Raleway';
 }
 
-.site-heading .site-heading-upper {
-  display: block;
-  font-size: 2rem;
-  font-weight: 800;
-}
+    .site-heading .site-heading-upper {
+        display: block;
+        font-size: 2rem;
+        font-weight: 800;
+    }
 
-.site-heading .site-heading-lower {
-  font-size: 5rem;
-  font-weight: 100;
-  line-height: 4rem;
-}
+    .site-heading .site-heading-lower {
+        font-size: 5rem;
+        font-weight: 100;
+        line-height: 4rem;
+    }
 
 .page-section {
-  margin-top: 5rem;
-  margin-bottom: 5rem;
+    margin-top: 5rem;
+    margin-bottom: 5rem;
 }
 
 .section-heading {
-  text-transform: uppercase;
+    text-transform: uppercase;
 }
 
-.section-heading .section-heading-upper {
-  display: block;
-  font-size: 1rem;
-  font-weight: 800;
-}
+    .section-heading .section-heading-upper {
+        display: block;
+        font-size: 1rem;
+        font-weight: 800;
+    }
 
-.section-heading .section-heading-lower {
-  display: block;
-  font-size: 3rem;
-  font-weight: 100;
-}
+    .section-heading .section-heading-lower {
+        display: block;
+        font-size: 3rem;
+        font-weight: 100;
+    }
 
 .bg-faded {
-  background-color: rgba(255, 255, 255, 0.85);
+    background-color: rgba(255, 255, 255, 0.85);
 }
 
+/* --- ÜST MENÜ (NAVBAR) AYARLARI --- */
 #mainNav {
-  background-color: rgba(47, 23, 15, 0.9);
-  font-family: 'Raleway';
+    background-color: rgba(44, 62, 80, 0.95); /* Koyu Mavi/Gri */
+    font-family: 'Raleway';
 }
 
-#mainNav .navbar-brand {
-  color: #e6a756;
-}
+    #mainNav .navbar-brand {
+        color: #e67e22; /* Turuncu Logo Yazýsý */
+    }
 
-#mainNav .navbar-nav .nav-item .nav-link {
-  color: rgba(255, 255, 255, 0.7);
-  font-weight: 800;
-}
+    #mainNav .navbar-nav .nav-item .nav-link {
+        color: rgba(255, 255, 255, 0.7);
+        font-weight: 800;
+        transition: all 0.3s ease; /* Hover efekti için geçiþ */
+    }
 
-#mainNav .navbar-nav .nav-item.active .nav-link {
-  color: #e6a756;
-}
+    /* Aktif Sayfa Rengi */
+    #mainNav .navbar-nav .nav-item.active .nav-link {
+        color: #e67e22;
+    }
+
+    /* Menü Hover Efekti (Üzerine Gelince) */
+    #mainNav .navbar-nav .nav-item .nav-link:hover {
+        color: #e67e22 !important; /* Turuncu parlama */
+        transform: scale(1.1); /* Hafif büyüme */
+        text-shadow: 0px 0px 10px rgba(255,255,255,0.3);
+    }
 
 @media (min-width: 992px) {
-  #mainNav .navbar-nav .nav-item .nav-link {
-    font-size: 0.9rem;
-  }
-  #mainNav .navbar-nav .nav-item .nav-link:hover {
-    color: rgba(255, 255, 255, 0.4);
-  }
-  #mainNav .navbar-nav .nav-item.active .nav-link:hover {
-    color: #e6a756;
-  }
+    #mainNav .navbar-nav .nav-item .nav-link {
+        font-size: 0.9rem;
+    }
+
+    #mainNav .navbar-nav .nav-item.active .nav-link:hover {
+        color: #e67e22;
+    }
 }
 
 .btn-xl {
-  font-weight: 700;
-  font-size: 0.8rem;
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-  padding-left: 2rem;
-  padding-right: 2rem;
+    font-weight: 700;
+    font-size: 0.8rem;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
 }
 
 .intro {
-  position: relative;
+    position: relative;
 }
 
 @media (min-width: 992px) {
-  .intro .intro-img {
-    width: 75%;
-    float: right;
-  }
-  .intro .intro-text {
-    left: 0;
-    width: 60%;
-    margin-top: 3rem;
-    position: absolute;
-  }
-  .intro .intro-text .intro-button {
-    width: 100%;
-    left: 0;
-    position: absolute;
-    bottom: -2rem;
-  }
+    .intro .intro-img {
+        width: 75%;
+        float: right;
+    }
+
+    .intro .intro-text {
+        left: 0;
+        width: 60%;
+        margin-top: 3rem;
+        position: absolute;
+    }
+
+        .intro .intro-text .intro-button {
+            width: 100%;
+            left: 0;
+            position: absolute;
+            bottom: -2rem;
+        }
 }
 
 @media (min-width: 1200px) {
-  .intro .intro-text {
-    width: 45%;
-  }
+    .intro .intro-text {
+        width: 45%;
+    }
 }
 
+/* --- ORTA ALAN (CTA) KUTUSU --- */
 .cta {
-  padding-top: 5rem;
-  padding-bottom: 5rem;
-  background-color: rgba(230, 167, 86, 0.9);
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    background-color: rgba(47, 53, 58, 0.85); /* Koyu Gri Arka Plan */
 }
 
-.cta .cta-inner {
-  position: relative;
-  padding: 3rem;
-  margin: 0.5rem;
-  background-color: rgba(255, 255, 255, 0.85);
-}
+    .cta .cta-inner {
+        position: relative;
+        padding: 3rem;
+        margin: 0.5rem;
+        background-color: rgba(255, 255, 255, 0.85);
+    }
 
-.cta .cta-inner:before {
-  border-radius: 0.5rem;
-  content: '';
-  position: absolute;
-  top: -0.5rem;
-  bottom: -0.5rem;
-  left: -0.5rem;
-  right: -0.5rem;
-  border: 0.25rem solid rgba(255, 255, 255, 0.85);
+        .cta .cta-inner:before {
+            border-radius: 0.5rem;
+            content: '';
+            position: absolute;
+            top: -0.5rem;
+            bottom: -0.5rem;
+            left: -0.5rem;
+            right: -0.5rem;
+            border: 0.25rem solid rgba(255, 255, 255, 0.85);
+        }
+
+@media (min-width: 992px) {
+    .about-heading .about-heading-img {
+        position: relative;
+        z-index: 0;
+    }
+
+    .about-heading .about-heading-content {
+        margin-top: -5rem;
+        position: relative;
+        z-index: 1;
+    }
 }
 
 @media (min-width: 992px) {
-  .about-heading .about-heading-img {
-    position: relative;
-    z-index: 0;
-  }
-  .about-heading .about-heading-content {
-    margin-top: -5rem;
-    position: relative;
-    z-index: 1;
-  }
-}
+    .product-item .product-item-title {
+        position: relative;
+        z-index: 1;
+        margin-bottom: -3rem;
+    }
 
-@media (min-width: 992px) {
-  .product-item .product-item-title {
-    position: relative;
-    z-index: 1;
-    margin-bottom: -3rem;
-  }
-  .product-item .product-item-img {
-    position: relative;
-    z-index: 0;
-    max-width: 60vw;
-  }
-  .product-item .product-item-description {
-    position: relative;
-    z-index: 1;
-    margin-top: -3rem;
-    max-width: 50vw;
-  }
+    .product-item .product-item-img {
+        position: relative;
+        z-index: 0;
+        max-width: 60vw;
+    }
+
+    .product-item .product-item-description {
+        position: relative;
+        z-index: 1;
+        margin-top: -3rem;
+        max-width: 50vw;
+    }
 }
 
 .list-hours {
-  font-size: 0.9rem;
+    font-size: 0.9rem;
 }
 
-.list-hours .list-hours-item {
-  border-bottom: 1px solid rgba(230, 167, 86, 0.5);
-  padding-bottom: .25rem;
-  margin-bottom: 1rem;
-  font-style: italic;
-}
+    .list-hours .list-hours-item {
+        border-bottom: 1px solid rgba(230, 167, 86, 0.5);
+        padding-bottom: .25rem;
+        margin-bottom: 1rem;
+        font-style: italic;
+    }
 
-.list-hours .list-hours-item.today {
-  font-weight: bold;
-  color: #e6a756;
-}
+        .list-hours .list-hours-item.today {
+            font-weight: bold;
+            color: #e67e22; /* Turuncu */
+        }
 
 @media (min-width: 992px) {
-  .list-hours {
-    width: 50%;
-    font-size: 1.1rem;
-  }
+    .list-hours {
+        width: 50%;
+        font-size: 1.1rem;
+    }
 }
 
 .address strong {
-  font-size: 1.2rem;
+    font-size: 1.2rem;
 }
 
 .footer {
-  background-color: rgba(47, 23, 15, 0.9);
+    background-color: rgba(47, 23, 15, 0.9);
 }
 
+/* GENEL RENK AYARLARI (Eski kahve renklerini eziyoruz) */
 .text-primary {
-  color: #e6a756 !important;
+    color: #e67e22 !important; /* Turuncu */
 }
 
 .bg-primary {
-  background-color: #e6a756 !important;
+    background-color: #e67e22 !important; /* Turuncu */
 }
 
+/* BUTON GÖLGESÝ */
 .btn {
-  -webkit-box-shadow: 0px 3px 3px 0px rgba(33, 37, 41, 0.1);
-  box-shadow: 0px 3px 3px 0px rgba(33, 37, 41, 0.1);
-}
-
-.btn-primary {
-  background-color: #e6a756;
-  border-color: #e6a756;
-}
-
-.btn-primary:hover, .btn-primary:focus, .btn-primary:active {
-  background-color: #df902a;
-  border-color: #df902a;
+    -webkit-box-shadow: 0px 3px 3px 0px rgba(33, 37, 41, 0.1);
+    box-shadow: 0px 3px 3px 0px rgba(33, 37, 41, 0.1);
 }
 
 .font-weight-light {
-  font-weight: 100 !important;
+    font-weight: 100 !important;
 }
 
-.field-validation-error{
-    color:#f00;
+/* DOÐRULAMA HATALARI (Kýrmýzý) */
+.field-validation-error {
+    color: #f00;
 }
 
 .input-validation-error {
     border: solid 2px #f00;
 }
+
+/* ==========================================================
+   MOBÝLYA DÜNYASI - ÖZEL BUTON PAKETÝ
+   (Bütün butonlarý buradan yönetiyoruz)
+   ========================================================== */
+
+/* 1. KOYU MAVÝ BUTONLAR (Ana Ýþlemler, .btn-primary) */
+.btn-primary {
+    background-color: #2c3e50 !important; /* Lacivert */
+    border-color: #2c3e50 !important;
+    color: #fff !important;
+    transition: all 0.3s ease;
+}
+
+    .btn-primary:hover, .btn-primary:active, .btn-primary:focus {
+        background-color: #1a252f !important; /* Koyu Lacivert */
+        border-color: #1a252f !important;
+        transform: scale(1.05);
+    }
+
+/* 2. TURUNCU BUTONLAR (Sepeti Onayla, Ürünlere Git, .btn-warning) */
+.btn-warning {
+    background-color: #e67e22 !important; /* Ahþap Turuncusu */
+    border-color: #e67e22 !important;
+    color: #fff !important; /* Yazýsý Beyaz */
+    transition: all 0.3s ease;
+}
+
+    .btn-warning:hover, .btn-warning:active, .btn-warning:focus {
+        background-color: #d35400 !important; /* Koyu Turuncu */
+        border-color: #d35400 !important;
+        transform: scale(1.05);
+    }
+
+/* 3. GRÝ BUTONLAR (Alýþveriþe Devam Et, Misafir Giriþi, .btn-secondary) */
+.btn-secondary {
+    background-color: #7f8c8d !important; /* Beton Grisi */
+    border-color: #7f8c8d !important;
+    color: #fff !important;
+    transition: all 0.3s ease;
+}
+
+    .btn-secondary:hover, .btn-secondary:active, .btn-secondary:focus {
+        background-color: #95a5a6 !important; /* Açýk Gri */
+        border-color: #95a5a6 !important;
+        transform: scale(1.05);
+    }
+
+/* 4. KIRMIZI BUTONLAR (Silme Ýþlemleri, .btn-danger) */
+.btn-danger {
+    background-color: #c0392b !important; /* Koyu Kýrmýzý */
+    border-color: #c0392b !important;
+    color: #fff !important;
+    transition: all 0.3s ease;
+}
+
+    .btn-danger:hover, .btn-danger:active, .btn-danger:focus {
+        background-color: #e74c3c !important; /* Canlý Kýrmýzý */
+        border-color: #e74c3c !important;
+    }
+
+/* 5. YEÞÝL BUTONLAR (Ekleme/Arttýrma Ýþlemleri, .btn-success) */
+.btn-success {
+    background-color: #27ae60 !important; /* Zümrüt Yeþili */
+    border-color: #27ae60 !important;
+    color: #fff !important;
+    transition: all 0.3s ease;
+}
+
+    .btn-success:hover, .btn-success:active, .btn-success:focus {
+        background-color: #2ecc71 !important; /* Parlak Yeþil */
+        border-color: #2ecc71 !important;
+    }

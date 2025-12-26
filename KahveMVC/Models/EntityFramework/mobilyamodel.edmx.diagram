@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="376b3eb500b941a3af9a2a9bfb79812e" Name="Diagram1">
+        <EntityTypeShape EntityType="MobilyaDbModel.anasayfa" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobilyaDbModel.hakkimizda" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobilyaDbModel.iletisimformu" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobilyaDbModel.kullanici" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobilyaDbModel.magaza" Width="1.5" PointX="4.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobilyaDbModel.magazasaat" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobilyaDbModel.urunler" Width="1.5" PointX="6.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MobilyaDbModel.siparis" Width="1.5" PointX="6.75" PointY="7.75" />
+        <EntityTypeShape EntityType="MobilyaDbModel.siparisdetay" Width="1.5" PointX="9" PointY="4" />
+        <AssociationConnector Association="MobilyaDbModel.FK_siparisdetay_siparis" />
+        <AssociationConnector Association="MobilyaDbModel.FK_siparisdetay_urunler" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

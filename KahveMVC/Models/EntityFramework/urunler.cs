@@ -14,13 +14,21 @@ namespace KahveMVC.Models.EntityFramework
     
     public partial class urunler
     {
+        public urunler()
+        {
+            this.siparisdetay = new HashSet<siparisdetay>();
+        }
+    
         public int id { get; set; }
-        public string foto { get; set; }
         public string baslik { get; set; }
         public string ustBaslik { get; set; }
         public string icerik { get; set; }
-        public bool aktif { get; set; }
-        public int sira { get; set; }
+        public string foto { get; set; }
         public Nullable<int> Fiyat { get; set; }
+        public int sira { get; set; }
+        public bool aktif { get; set; }
+        public Nullable<int> stok { get; set; }
+    
+        public virtual ICollection<siparisdetay> siparisdetay { get; set; }
     }
 }

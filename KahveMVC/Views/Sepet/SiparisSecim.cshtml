@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Sipariş Onayı";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="page-section cta">
+    <div class="container">
+        <div class="row">
+            <div class="col-xl-9 mx-auto">
+                <div class="cta-inner text-center rounded">
+
+                    <h2 class="section-heading mb-5">
+                        <span class="section-heading-upper">Son Adım</span>
+                        <span class="section-heading-lower">Teslimat Bilgileri</span>
+                    </h2>
+
+                    <div class="row">
+
+                        @if (Session["KullaniciAdi"] == null)
+                        {
+                            <div class="col-md-5 mb-4" style="border-right: 1px solid #ddd;">
+                                <h4 class="mb-4" style="color: #e6a756;">Üye Girişi</h4>
+                                <p class="small">Üyeyseniz giriş yapın, bilgileriniz otomatik gelsin.</p>
+
+                                <form action="/Login/Giris" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <input type="hidden" name="ReturnUrl" value="/Sepet/SiparisSecim" />
+
+                                    <div class="form-group">
+                                        <input type="text" name="ad" class="form-control" placeholder="Kullanıcı Adı" required />
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="password" name="sifre" class="form-control" placeholder="Şifre" required />
+                                    </div>
+                                    <button type="submit" class="btn btn-primary btn-block font-weight-bold">GİRİŞ YAP</button>
+                                </form>
+                            </div>
+                        }
+
+                        <div class="@(Session["KullaniciAdi"] == null ? "col-md-7" : "col-md-12")">
+
+                            <h4 class="mb-4" style="color: #e6a756;">
+                                @(Session["KullaniciAdi"] != null ? "Hoşgeldin " + Session["KullaniciAdi"] : "Teslimat Bilgileri")
+                            </h4>
+
+                            <p class="mb-4">
+                                @(Session["KullaniciAdi"] != null ? "Kayıtlı bilgileriniz aşağıdadır. İsterseniz değiştirebilirsiniz." : "Lütfen adres bilgilerinizi giriniz.")
+                            </p>
+
+                            <form action="/Sepet/SiparisiTamamla" method="post">
+
+                                <div class="form-group">
+                                    <label>Ad Soyad</label>
+                                    <input type="text" name="adSoyad" class="form-control" required
+                                           value="@ViewBag.Ad" placeholder="Adınız Soyadınız" />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Telefon</label>
+                                    <input type="text" name="telefon" class="form-control" required
+                                           value="@ViewBag.Tel" placeholder="05XX..." />
+                                </div>
+
+                                <div class="form-group">
+                                    <label>Adres</label>
+                                    <textarea name="adres" class="form-control" rows="4" required placeholder="Açık Adres...">@ViewBag.Adres</textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-success btn-lg btn-block font-weight-bold mt-4">
+                                    <i class="fas fa-check"></i> SİPARİŞİ ONAYLA VE BİTİR
+                                </button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

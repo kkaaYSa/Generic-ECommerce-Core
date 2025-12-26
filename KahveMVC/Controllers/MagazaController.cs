@@ -14,7 +14,7 @@ namespace KahveMVC.Controllers
         // GET: Magaza
         public ActionResult Index()
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            using (MobilyaDbEntities db = new MobilyaDbEntities ())
             {
                 var model = db.magaza.First();
                 return View(model);
@@ -23,7 +23,7 @@ namespace KahveMVC.Controllers
         }
         public ActionResult MagazaGuncelle()
         {
-            using (kahve2019Entities db = new kahve2019Entities())
+            using (MobilyaDbEntities db = new MobilyaDbEntities ())
             {
                 var model = db.magaza.First();
                 return View(model);
@@ -36,7 +36,7 @@ namespace KahveMVC.Controllers
         public ActionResult Kaydet(magaza GelenVeri)
         {
 
-            using (kahve2019Entities db = new kahve2019Entities())
+            using (MobilyaDbEntities db = new MobilyaDbEntities ())
             {
                 var GuncellenecekVeri = db.magaza.First();
                 if (!ModelState.IsValid)
